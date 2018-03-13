@@ -9,26 +9,6 @@
   $(function(){
     document.getElementById("SP").innerHTML = (sp === "") ? "未设置" : sp;
     document.getElementById("flux").innerHTML = flux;
-    // get lastest version
-    $.ajax({
-      url: "?mode=api&a=main&m=getLastestVer",
-      dataType: "json",
-      timeout: 10000,
-      complete: function(xml, status){
-        console.log(status);
-      },
-      success: function(data){
-        // current version
-        var current_version = $("#current_version").text();
-        console.log(current_version);
-        var lastest_version = data;
-        $("#auto_lastest_version").text(lastest_version);
-        // version compare
-        if( current_version != lastest_version){
-          $("#auto_lastest_version_tip").html("有新版本@<a class=\"text-muted\" href=\"?page=update\">[更新]</a>");
-        }
-      },
-    });
     // 危险提示
     if( danger_code !== "" ){
       var danger_alert = "<div class=\"alert alert-danger text-center\" role=\"alert\">" + "["+danger_code+"]" + danger_msg + " <a class=\"text-danger\" href=\"javascript:;\" onclick=\"safetyAssistant();\">修复</a></div>";

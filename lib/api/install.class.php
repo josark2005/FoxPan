@@ -71,7 +71,7 @@ class install {
       $config["BKT"] = $_POST['bkt'];
       $config["DM"] = $_POST['dm'];
       $config["QD"] = $_POST['qd'];
-      $config["AUTH_PW"] = $_POST['auth_pw'];
+      $config["AUTH_PW"] = md5($_POST['auth_pw']);
       $config["UPDATE_BASIC_URL"] = $_POST['upd'];
       $linefeed = PHP_EOL;
       $content = "<?php{$linefeed}return ".var_export($config,true).";";

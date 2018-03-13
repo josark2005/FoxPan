@@ -63,8 +63,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
       <div class="container">
         <a class="navbar-brand" href="javascript:;">
-          <!-- <img src="./lib/tpl/img/logo.png" width="30" height="30" alt="logo"> -->
-          __NAME_CN__
+          <img src="./lib/tpl/imgs/logo.png" width="30" height="30" alt="logo">
+          __NAME__
         </a>
         <a class="navbar-text text-white" id="zen" href="javascript:;" target="_blank"></a>
       </div>
@@ -77,23 +77,25 @@
           <div class="card">
             <div class="card-header bg-dark text-white"><i class="fas fa-sign-in-alt"></i> 登录 / Login</div>
             <div class="card-body">
-              <div class="alert alert-primary" id="msg">欢迎使用__NAME_CN__！</div>
+              <div class="alert alert-primary" id="msg">
+                欢迎使用__NAME_CN__ __NAME__！
+              </div>
               <div class="input-group mb-3">
-                <input type="password" id="pw" tabindex="0" class="form-control" autofocus="autofocus" placeholder="授权密码 Authorization Password" />
+                <input type="password" id="pw" tabindex="0" class="form-control" autofocus="autofocus" placeholder="请输入密码" />
                 <div class="input-group-sappend">
                   <button class="btn btn-outline-secondary" id="btn" type="button" onclick="javascript:login();">登录</button>
                 </div>
               </div>
-              <!-- <a class="text-muted small float-right" href="http://jokin1999.github.io/PrivacyCloud/manual/forgetAuthPW.html" target="_blank">忘记密码？</a> -->
+              <a class="text-muted small float-right" href="http://jokin1999.github.io/FoxPan/manual/forgetAuthPW.html" target="_blank">忘记密码？</a>
             </div>
             <div class="card-footer text-muted">
-              <small>当前版本：__VERSION__</small><br />
-              <small>Powered by Jokin.</small><br />
-              <hr />
-              <small>
-                <a class="text-muted" href="http://jokin1999.github.io/FoxPan" target="_blank">官方网站</a>
-                |
-                <a class="text-muted fab fa-github" href="http://github.com/Jokin1999/FoxPan" target="_blank"> GitHub</a>
+              <small class="clear-fix">
+                <span class="float-left">
+                  <a class="text-muted" href="http://jokin1999.github.io/FoxPan" target="_blank">官方网站</a>
+                  |
+                  <a class="text-muted fab fa-github" href="http://github.com/Jokin1999/FoxPan" target="_blank"> GitHub</a>
+                </span>
+                <span class="float-right">Jokin all rights reserved.</span>
               </small>
             </div>
           </div>

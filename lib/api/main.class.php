@@ -14,8 +14,8 @@
 class main {
   public function login(){
     if( isset($_POST['pw']) && !empty($_POST['pw']) ){
-      if( $_POST['pw'] === C("AUTH_PW") ){
-        $token = \fp\safety::authorizate($_POST['pw']);
+      if( md5($_POST['pw']) === C("AUTH_PW") ){
+        $token = \fp\safety::authorizate(md5($_POST['pw']));
         setcookie("token", $token, time() + 3600);
         $err['code'] = "0";
         $err['msg'] = "success";
