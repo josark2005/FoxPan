@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>__NAME_CN__</title>
-    <link rel="shortcut icon" href="./lib/tpl/img/logo_pc.png">
+    <link rel="shortcut icon" href="./lib/tpl/imgs/logo.png">
     <link rel="stylesheet" href="./lib/tpl/css/bootstrap.min.css">
     <!-- Special Page -->
     <link rel="stylesheet" href="./lib/tpl/css/fontawesome-all.min.css">

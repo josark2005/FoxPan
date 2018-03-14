@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>__NAME_CN__</title>
-    <link rel="shortcut icon" href="./lib/tpl/img/logo_pc.png">
+    <link rel="shortcut icon" href="./lib/tpl/imgs/logo.png">
     <link rel="stylesheet" href="./lib/tpl/css/bootstrap.min.css">
     <!-- Special Page -->
     <link rel="stylesheet" href="./lib/tpl/css/fontawesome-all.min.css">
@@ -58,9 +58,9 @@
       }
     </script>
   </head>
-  <body class="bg-dark">
+  <body class="bg-secondary">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary" id="navbar">
       <div class="container">
         <a class="navbar-brand" href="javascript:;">
           <img src="./lib/tpl/imgs/logo.png" width="30" height="30" alt="logo">
@@ -73,8 +73,8 @@
     <div class="container mt-4" id="container">
       <div class="row">
 
-        <div class="col-md-6 col-sm-12 mx-auto">
-          <div class="card">
+        <div class="col-md-6 col-sm-12 mx-auto mt-4 pt-4">
+          <div class="card" style="border:none;">
             <div class="card-header bg-dark text-white"><i class="fas fa-sign-in-alt"></i> 登录 / Login</div>
             <div class="card-body">
               <div class="alert alert-primary" id="msg">
@@ -83,7 +83,7 @@
               <div class="input-group mb-3">
                 <input type="password" id="pw" tabindex="0" class="form-control" autofocus="autofocus" placeholder="请输入密码" />
                 <div class="input-group-sappend">
-                  <button class="btn btn-outline-secondary" id="btn" type="button" onclick="javascript:login();">登录</button>
+                  <button class="btn btn-outline-dark" id="btn" type="button" onclick="javascript:login();">登录</button>
                 </div>
               </div>
               <a class="text-muted small float-right" href="http://jokin1999.github.io/FoxPan/manual/forgetAuthPW.html" target="_blank">忘记密码？</a>
