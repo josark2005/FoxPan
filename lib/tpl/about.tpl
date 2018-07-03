@@ -23,6 +23,7 @@
 
     <div class="jumbotron pb-2">
       <div class="container">
+        {_warning_}
         <h1 class="display-4">__NAME_CN__ (__NAME__)</h1>
         <p class="lead">私有云对象存储服务管理一站式解决方案</p>
         <hr class="my-4">
@@ -39,7 +40,7 @@
           <div class="card">
             <div class="card-header bg-dark text-white">反馈</div>
             <div class="card-body">
-              <p>在使用过程中有任何疑问或发现了Bug欢迎您发送邮件到 <strong>jokin@twocola.com</strong>，请注明以下内容：</p>
+              <p>在使用过程中有任何疑问或发现了Bug欢迎您发送邮件到 <strong>pc@twocola.com</strong>，请注明以下内容：</p>
               <ol>
                 <li>反馈项目：__NANE__</li>
                 <li>Bug复现流程</li>

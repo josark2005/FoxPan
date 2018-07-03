@@ -123,15 +123,14 @@
       var bkt = $("#bkt").val();
       var dm = $("#dm").val();
       var qd = $("#qd").val();
-      var upd = $("#upd").val()==="" ? $("#upd").attr("placeholder") : $("#upd").val();
       var auth_pw = $("#auth_pw").val();
-      if( sp === "null" || ak === "" || sk === "" || bkt === "" || dm ==="" || qd === "" || upd === "" ){
+      if( sp === "null" || ak === "" || sk === "" || bkt === "" || dm ==="" || qd === "" ){
         alert("信息不完整，请返回重新填写");
         return ;
       }
       ajax = $.ajax({
         url: "?mode=api&install=true&a=install&m=setOptions",
-        data: {"sp":sp, "ak":ak, "sk":sk, "bkt":bkt, "dm":dm, "qd":qd, "upd":upd, "auth_pw":auth_pw},
+        data: {"sp":sp, "ak":ak, "sk":sk, "bkt":bkt, "dm":dm, "qd":qd, "auth_pw":auth_pw},
         type: "post",
         dataType: "json",
         timeout: 10000,
@@ -250,13 +249,7 @@
 
               <!-- S5 -->
               <div id="s5" name="s5">
-                <h3 name="update">更新设置</h3>
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="_upd">更新地址 UPD</span>
-                  </div>
-                  <input type="text" class="form-control" id="upd" aria-describedby="_upd" placeholder="http://jokin1999.github.io/PrivacyCloud/" value="__UPDATE_BASIC_URL__">
-                </div>
+                <h3 name="safety">安全设置</h3>
 
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">

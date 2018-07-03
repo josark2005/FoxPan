@@ -9,7 +9,7 @@
 namespace fp;
 /**
  * Template Processor
- * @version 1.2.2
+ * @version 1.2.3
  * @author Jokin
 **/
 class template {
@@ -55,10 +55,28 @@ class template {
       C("PAGE_MANAGER_DATA_FILELIST", $d);
     }
     // 处理
+    $page = self::clearComments($page);
     $page = self::pageInclude($page);
     $page = self::conReference($page);
     echo $page;
   }
+
+  /**
+   * clearComments
+   * @param  string page
+   * @return string page
+   */
+   public static function clearComments($page){
+     $pattern = "/<!--([\s\S]*)-->/iUm";
+     $preg = preg_match_all($pattern,$page,$matches);
+     if($preg!=0){
+       for($i=0;$i<count($matches[0]);$i++){
+         $page = str_replace($matches[0][$i],"",$page);
+       }
+     }
+     return $page;
+   }
+
 
   /**
   * 常量引用
@@ -73,7 +91,7 @@ class template {
       $matches[0] = array_unique($matches[0]);
       $matches[1] = array_unique($matches[1]);
       $i = 0;
-      $res = "";
+      $res = array();
       foreach($matches[0] as $match){
         $res[0][$i] = $match;
         $i++;

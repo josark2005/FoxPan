@@ -57,7 +57,7 @@ class install {
     }
   }
   public function setOptions(){
-    if( isset($_POST['ak'], $_POST['sk'], $_POST['bkt'], $_POST['sp'], $_POST['dm'], $_POST['qd'], $_POST['upd'], $_POST['auth_pw']) ){
+    if( isset($_POST['ak'], $_POST['sk'], $_POST['bkt'], $_POST['sp'], $_POST['dm'], $_POST['qd'], $_POST['auth_pw']) ){
       if( !is_file("./config.inc.php") ){
         $err['code'] = "JPCAD03";
         $err['msg'] = "confinguration file lost";
@@ -72,7 +72,6 @@ class install {
       $config["DM"] = $_POST['dm'];
       $config["QD"] = $_POST['qd'];
       $config["AUTH_PW"] = md5($_POST['auth_pw']);
-      $config["UPDATE_BASIC_URL"] = $_POST['upd'];
       $linefeed = PHP_EOL;
       $content = "<?php{$linefeed}return ".var_export($config,true).";";
       $res = file_put_contents("./config.inc.php", $content);

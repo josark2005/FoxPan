@@ -42,10 +42,10 @@ final class Zone
     public static function zone0()
     {
         $Zone_z0 = new Zone(
-            array("up.qiniup.com", 'up-nb.qiniup.com', 'up-xs.qiniup.com'),
-            array('upload.qiniup.com', 'upload-nb.qiniup.com', 'upload-xs.qiniup.com'),
-            'rs.qiniu.com',
-            'rsf.qiniu.com',
+            array("up.qiniup.com", 'up-jjh.qiniup.com', 'up-xs.qiniup.com'),
+            array('upload.qiniup.com', 'upload-jjh.qiniup.com', 'upload-xs.qiniup.com'),
+            'rs.qbox.me',
+            'rsf.qbox.me',
             'api.qiniu.com',
             'iovip.qbox.me'
         );
@@ -58,8 +58,8 @@ final class Zone
         $Zone_z1 = new Zone(
             array('up-z1.qiniup.com'),
             array('upload-z1.qiniup.com'),
-            "rs-z1.qiniu.com",
-            "rsf-z1.qiniu.com",
+            "rs-z1.qbox.me",
+            "rsf-z1.qbox.me",
             "api-z1.qiniu.com",
             "iovip-z1.qbox.me"
         );
@@ -71,10 +71,10 @@ final class Zone
     public static function zone2()
     {
         $Zone_z2 = new Zone(
-            array('up-z2.qiniup.com', 'up-gz.qiniup.com', 'up-fs.qiniup.com'),
-            array('upload-z2.qiniup.com', 'upload-gz.qiniup.com', 'upload-fs.qiniup.com'),
-            "rs-z2.qiniu.com",
-            "rsf-z2.qiniu.com",
+            array('up-z2.qiniup.com', 'up-dg.qiniup.com', 'up-fs.qiniup.com'),
+            array('upload-z2.qiniup.com', 'upload-dg.qiniup.com', 'upload-fs.qiniup.com'),
+            "rs-z2.qbox.me",
+            "rsf-z2.qbox.me",
             "api-z2.qiniu.com",
             "iovip-z2.qbox.me"
         );
@@ -88,12 +88,27 @@ final class Zone
         $Zone_na0 = new Zone(
             array('up-na0.qiniup.com'),
             array('upload-na0.qiniup.com'),
-            "rs-na0.qiniu.com",
-            "rsf-na0.qiniu.com",
+            "rs-na0.qbox.me",
+            "rsf-na0.qbox.me",
             "api-na0.qiniu.com",
             "iovip-na0.qbox.me"
         );
         return $Zone_na0;
+    }
+
+    //新加坡机房
+    public static function zoneAs0()
+    {
+        //新加坡机房
+        $Zone_as0 = new Zone(
+            array('up-as0.qiniup.com'),
+            array('upload-as0.qiniup.com'),
+            "rs-as0.qbox.me",
+            "rsf-as0.qbox.me",
+            "api-as0.qiniu.com",
+            "iovip-as0.qbox.me"
+        );
+        return $Zone_as0;
     }
 
     /*
@@ -108,6 +123,7 @@ final class Zone
             return array(null, new Error($url, $ret));
         }
         $r = ($ret->body === null) ? array() : $ret->json();
+        //print_r($ret);
         //parse zone;
 
         $iovipHost = $r['io']['src']['main'][0];
@@ -129,20 +145,24 @@ final class Zone
 
         //set specific hosts
         if (strstr($zone->iovipHost, "z1") !== false) {
-            $zone->rsHost = "rs-z1.qiniu.com";
-            $zone->rsfHost = "rsf-z1.qiniu.com";
+            $zone->rsHost = "rs-z1.qbox.me";
+            $zone->rsfHost = "rsf-z1.qbox.me";
             $zone->apiHost = "api-z1.qiniu.com";
         } elseif (strstr($zone->iovipHost, "z2") !== false) {
-            $zone->rsHost = "rs-z2.qiniu.com";
-            $zone->rsfHost = "rsf-z2.qiniu.com";
+            $zone->rsHost = "rs-z2.qbox.me";
+            $zone->rsfHost = "rsf-z2.qbox.me";
             $zone->apiHost = "api-z2.qiniu.com";
         } elseif (strstr($zone->iovipHost, "na0") !== false) {
-            $zone->rsHost = "rs-na0.qiniu.com";
-            $zone->rsfHost = "rsf-na0.qiniu.com";
+            $zone->rsHost = "rs-na0.qbox.me";
+            $zone->rsfHost = "rsf-na0.qbox.me";
             $zone->apiHost = "api-na0.qiniu.com";
+        } elseif (strstr($zone->iovipHost, "as0") !== false) {
+            $zone->rsHost = "rs-as0.qbox.me";
+            $zone->rsfHost = "rsf-as0.qbox.me";
+            $zone->apiHost = "api-as0.qiniu.com";
         } else {
-            $zone->rsHost = "rs.qiniu.com";
-            $zone->rsfHost = "rsf.qiniu.com";
+            $zone->rsHost = "rs.qbox.me";
+            $zone->rsfHost = "rsf.qbox.me";
             $zone->apiHost = "api.qiniu.com";
         }
 

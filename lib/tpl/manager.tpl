@@ -203,7 +203,7 @@
     {_nav_}
 
     <div class="container mt-4" id="container">
-
+      {_warning_}
       <div class="row">
 
         <div class="col-md-4 col-sm-12">
@@ -261,7 +261,7 @@
 
     </div>
 
-    {_footer_}
+    <!-- {_footer_} -->
 
     <div class="modal fade" tabindex="-1" role="dialog" id="newFloder">
       <div class="modal-dialog" role="document">

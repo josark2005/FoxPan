@@ -89,6 +89,7 @@
     {_nav_}
 
     <div class="container mt-4" id="container">
+      {_warning_}
       <div class="row">
 
         <div class="col-md-6 col-sm-12 mb-2">
@@ -129,7 +130,7 @@
 
     </div>
 
-    {_footer_}
+    <!-- {_footer_} -->
 
   </body>
 </html>

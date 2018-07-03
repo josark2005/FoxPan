@@ -8,13 +8,13 @@
 // +----------------------------------------------------------------------
 /**
  * Safety Core
- * @version 1.0.1
+ * @version 1.0.2
  * @author Jokin
 **/
 namespace fp;
 class safety {
   public static function authorizate($pw){
-    $pw = MD5(md5($pw.C("SAFE_ENCRYPTION")));
+    $pw = MD5(md5($pw));
     return $pw;
   }
   public static function is_auth(){

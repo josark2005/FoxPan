@@ -11,16 +11,6 @@
     <script src="./lib/tpl/js/jquery-3.2.1.min.js" charset="utf-8"></script>
     <script src="./lib/tpl/js/bootstrap.bundle.min.js" charset="utf-8"></script>
     <script type="text/javascript">
-    var sp = "__SP__".toUpperCase();
-    var flux = "__FLUX__" + "MB";
-    $(function(){
-      document.getElementById("SP").innerHTML = (sp === "") ? "缺失" : sp;
-      document.getElementById("flux").innerHTML = flux;
-      // active fix
-      if( sp !== "" ){
-        $("option[value="+sp+"]").attr("selected", "selected");
-      }
-    });
     // Ajax配置
     var ajax = null;
     function accept_a(){
@@ -161,15 +151,14 @@
       var bkt = $("#bkt").val();
       var dm = $("#dm").val();
       var qd = $("#qd").val();
-      var upd = $("#upd").val()==="" ? $("#upd").attr("placeholder") : $("#upd").val();
       var auth_pw = $("#auth_pw").val();
-      if( sp === "null" || ak === "" || sk === "" || bkt === "" || dm ==="" || qd === "" || upd === "" ){
+      if( sp === "null" || ak === "" || sk === "" || bkt === "" || dm ==="" || qd === "" ){
         alert("信息不完整，请返回重新填写");
         return ;
       }
       ajax = $.ajax({
         url: "?mode=api&install=true&a=install&m=setOptions",
-        data: {"sp":sp, "ak":ak, "sk":sk, "bkt":bkt, "dm":dm, "qd":qd, "upd":upd, "auth_pw":auth_pw},
+        data: {"sp":sp, "ak":ak, "sk":sk, "bkt":bkt, "dm":dm, "qd":qd, "auth_pw":auth_pw},
         type: "post",
         dataType: "json",
         timeout: 10000,
@@ -195,10 +184,8 @@
   </head>
   <body>
 
-    {_nav_}
-
     <div class="container mt-4" id="container">
-
+      {_warning_}
       <div class="row">
 
         <div class="col-md-12 col-sm-12 mb-2" id="s0">
@@ -359,16 +346,6 @@
               </div>
               <!-- S5 -->
               <div class="d-none" id="s5" name="s5">
-                <div class="alert alert-primary" role="alert">
-                  不知道如何设置此项？默认即可！
-                </div>
-
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="_upd">更新地址 UPD</span>
-                  </div>
-                  <input type="text" class="form-control" id="upd" aria-describedby="_upd" placeholder="http://jokin1999.github.io/PrivacyCloud/" value="__UPDATE_BASIC_URL__">
-                </div>
 
                 <div class="alert alert-danger" role="alert">
                   <strong>警告！</strong>下方密码设置后请一定牢记，下次打开需要填写密码才可以进入！留空则取消密码。

@@ -21,7 +21,8 @@ class Core {
     // 基本定义
     define("NAME", "FoxPan");
     define("NAME_CN", "狐云");
-    define("VERSION", "0.0.1");
+    define("VERSION", "0.0.2");
+    define("STATUE", "alpha");
     // 环境版本判断
     if( version_compare(PHP_VERSION ,"5.6.0" ,"<") ){
       die("您的PHP版本必须要大于等于5.6.0才能正常运行本程序");

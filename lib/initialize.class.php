@@ -19,10 +19,6 @@ class initialize {
     }else{
       define("P", isset($_GET['page'])?$_GET['page']:"index");
     }
-    // 安全码设置
-    if( C("SAFE_ENCRYPTION") === false ){
-      C("SAFE_ENCRYPTION", "PrivacyCloud2018", true);
-    }
     // Cookie续期
     if( isset($_COOKIE['token']) ){
       setcookie("token", $_COOKIE['token'], time() + 3600);

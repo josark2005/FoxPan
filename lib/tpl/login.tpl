@@ -60,7 +60,7 @@
   </head>
   <body class="bg-secondary">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary" id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow:0 0 200px 1px rgb(139, 195, 224);" id="navbar">
       <div class="container">
         <a class="navbar-brand" href="javascript:;">
           <img src="./lib/tpl/imgs/logo.png" width="30" height="30" alt="logo">
@@ -83,7 +83,7 @@
               <div class="input-group mb-3">
                 <input type="password" id="pw" tabindex="0" class="form-control" autofocus="autofocus" placeholder="请输入密码" />
                 <div class="input-group-sappend">
-                  <button class="btn btn-outline-dark" id="btn" type="button" onclick="javascript:login();">登录</button>
+                  <button class="btn btn-outline-secondary" id="btn" type="button" onclick="javascript:login();">登录</button>
                 </div>
               </div>
               <a class="text-muted small float-right" href="http://jokin1999.github.io/FoxPan/manual/forgetAuthPW.html" target="_blank">忘记密码？</a>
