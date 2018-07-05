@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="./lib/tpl/css/fontawesome-all.min.css">
     <script src="./lib/tpl/js/jquery-3.2.1.min.js" charset="utf-8"></script>
     <script src="./lib/tpl/js/bootstrap.bundle.min.js" charset="utf-8"></script>
-    <script src="./lib/tpl/js/zen.js" charset="utf-8"></script>
     <script type="text/javascript">
       $(function(){
         // height fixer
@@ -60,13 +59,13 @@
   </head>
   <body class="bg-secondary">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow:0 0 200px 1px rgb(139, 195, 224);" id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow:0 0 150px 1px rgb(52, 58, 64);" id="navbar">
       <div class="container">
         <a class="navbar-brand" href="javascript:;">
           <img src="./lib/tpl/imgs/logo.png" width="30" height="30" alt="logo">
-          __NAME__
+          __NAME_CN__
         </a>
-        <a class="navbar-text text-white" id="zen" href="javascript:;" target="_blank"></a>
+        <span class="navbar-text text-muted">No more, no less either.</span>
       </div>
     </nav>
 
@@ -94,8 +93,9 @@
                   <a class="text-muted" href="http://jokin1999.github.io/FoxPan" target="_blank">官方网站</a>
                   |
                   <a class="text-muted fab fa-github" href="http://github.com/Jokin1999/FoxPan" target="_blank"> GitHub</a>
+                  |
+                  <a class="text-muted far fa-list-alt" href="http://foxpan.twocola.com/notice/update_logs.html" target="_blank"> 更新日志</a>
                 </span>
-                <span class="float-right">Jokin all rights reserved.</span>
               </small>
             </div>
           </div>

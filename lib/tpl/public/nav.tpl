@@ -2,7 +2,7 @@
   <div class="container">
     <a class="navbar-brand" href="javascript:;">
       <img src="./lib/tpl/imgs/logo.png" width="30" height="30" alt="logo">
-      __NAME__
+      __NAME_CN__
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav" aria-controls="nav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

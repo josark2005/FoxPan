@@ -23,7 +23,6 @@
 
     <div class="jumbotron pb-2">
       <div class="container">
-        {_warning_}
         <h1 class="display-4">__NAME_CN__ (__NAME__)</h1>
         <p class="lead">私有云对象存储服务管理一站式解决方案</p>
         <hr class="my-4">

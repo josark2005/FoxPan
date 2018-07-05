@@ -143,10 +143,92 @@
         success: function(data){
           console.log(data);
           if( data.code === "0" ){
-            location.href="?page=index";
+            location.href = "";
             return ;
           }else{
             alert("设置失败：" + data.msg + " [" + data.code +"]");
+            return ;
+          }
+        }
+      });
+    }
+    function getBkt(){
+      // get Bkt
+      var sp = $("#sp").val();
+      var ak = $("#ak").val();
+      var sk = $("#sk").val();
+      if( sp === "null" || ak === "" || sk === "" ){
+        alert("请完整填写AK/SK信息");
+        return ;
+      }
+      $('#getBkt').attr('disabled', 'disabled');
+      ajax = $.ajax({
+        url: "?mode=api&install=true&a=install&m=getBkt",
+        data: {"sp":sp, "ak":ak, "sk":sk},
+        type: "post",
+        dataType: "json",
+        timeout: 10000,
+        complete: function(Http, status){
+          $('#getBkt').removeAttr('disabled');
+          if( status === "timeout" ){
+            ajax.abort();
+            alert("连接服务器超时");
+            back2b();
+            return ;
+          }
+        },
+        success: function(data){
+          console.log(data);
+          if( data.code === "0" ){
+            var content = "";
+            $.each(data.data, function(key, value){
+              content += "<option value=\""+value+"\">"+value+"</option>";
+            });
+            $("#bkt_null").remove();
+            $("#bkt_a").append(content);
+            return ;
+          }else{
+            alert("获取Bucket失败：" + data.msg + " [" + data.code +"]");
+            return ;
+          }
+        }
+      });
+    }
+    function getDM(){
+      var sp = $("#sp").val();
+      var ak = $("#ak").val();
+      var sk = $("#sk").val();
+      var bkt = $("#bkt").val();
+      if( sp === "null" || ak === "" || sk === "" || bkt === "" ){
+        alert("请完整填写相关信息");
+        return ;
+      }
+      $('#getDM').attr('disabled', 'disabled');
+      ajax = $.ajax({
+        url: "?mode=api&install=true&a=install&m=getDomain",
+        data: {"sp":sp, "ak":ak, "sk":sk, "bkt":bkt},
+        type: "post",
+        dataType: "json",
+        timeout: 10000,
+        complete: function(Http, status){
+          $('#getDM').removeAttr('disabled');
+          if( status === "timeout" ){
+            alert("连接服务器超时");
+            return ;
+          }
+        },
+        success: function(data){
+          console.log(data);
+          if( data.code === "0" ){
+            console.log(data.data.length);
+            if( data.data.length !== 0 ){
+              $("#dm").val(data.data[0]);
+              var qd = data.data.join(",");
+              $("#qd").val(qd);
+            }
+            return ;
+          }else{
+            alert("获取域名失败：" + data.msg + " [" + data.code +"]");
             return ;
           }
         }
@@ -201,17 +283,14 @@
 
               <!-- S3 -->
               <div id="s3" name="s3">
-                <h3 name="bkt">空间设置</h3>
+                <h3 name="bkt">空间设置<button type="button" class="ml-2 btn btn-sm btn-outline-secondary" id="getBkt" onclick="getBkt();">自动获取</button></h3>
                 <div class="alert alert-primary"><strong>提醒！</strong>如“自动获取”的Bucket中没有您想要填写的名称，直接在下方输入框中填写即可。</div>
-                <div class="clearfix mb-2">
-                  <button type="button" class="btn btn-outline-primary float-right">自动获取</button>
-                </div>
                 <div class="input-group mb-3" id="_bkt_select">
                   <div class="input-group-prepend">
                     <label class="input-group-text" for="bkt_a">自动获取Bucket</label>
                   </div>
                   <select class="custom-select" id="bkt_a" onchange="$('#bkt').val(this.value==='null'?'':this.value);console.log(this.value);">
-                    <option value="null" selected>请选择Bucket</option>
+                    <option value="null" id="bkt_null" selected>点击自动获取按钮</option>
                   </select>
                 </div>
 
@@ -229,7 +308,7 @@
 
               <!-- S4 -->
               <div id="s4" name="s4">
-                <h3 name="domain">域名设置</h3>
+                <h3 name="domain">域名设置<button type="button" class="ml-2 btn btn-sm btn-outline-secondary" id="getDM" onclick="getDM();">自动获取</button></h3>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text" id="_dm">使用域名 DM</span>

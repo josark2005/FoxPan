@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 /**
  * Main API
- * @version  1.1.0
+ * @version  1.1.1
  * @author Jokin
 **/
 class install {
@@ -71,7 +71,7 @@ class install {
       $config["BKT"] = $_POST['bkt'];
       $config["DM"] = $_POST['dm'];
       $config["QD"] = $_POST['qd'];
-      $config["AUTH_PW"] = md5($_POST['auth_pw']);
+      $config["AUTH_PW"] = ($_POST['auth_pw'] === '') ? C('AUTH_PW') : md5($_POST['auth_pw']);
       $linefeed = PHP_EOL;
       $content = "<?php{$linefeed}return ".var_export($config,true).";";
       $res = file_put_contents("./config.inc.php", $content);
