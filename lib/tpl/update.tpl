@@ -67,7 +67,7 @@
 
     <div class="container mt-4" id="container">
 
-      <div class="alert alert-danger text-center" role="alert">当前程序为alpha开发阶段，处于稳定性考虑，暂不提供云服务。</div>
+      <div class="alert alert-danger text-center" role="alert">当前程序为alpha开发阶段，出于稳定性考虑，暂不提供云服务。</div>
 
       <div class="row">
 
