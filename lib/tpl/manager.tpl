@@ -296,8 +296,8 @@
           </div>
           <div class="modal-body">
               <a id="download_href" href="javascript:;" target="_blank" class="btn btn-primary btn-block">下载</a>
-              <hr />
-              <a id="rename_href" href="javascript:;" onclick="$('#manager').modal('hide');$('#rename').modal('show');" class="btn btn-primary btn-block">重命名</a>
+              <!-- <hr /> -->
+              <!-- <a id="rename_href" href="javascript:;" onclick="$('#manager').modal('hide');$('#rename').modal('show');" class="btn btn-primary btn-block">重命名</a> -->
               <hr />
               <a id="del_href_enter" href="javascript:;" class="btn btn-danger btn-block">删除</a>
           </div>
