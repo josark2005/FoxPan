@@ -6,5 +6,5 @@ return array (
   'BKT' => '',
   'DM' => false,
   'QD' => false,
-  "AUTH_PW" => '',
+  'AUTH_PW' => '',
 );

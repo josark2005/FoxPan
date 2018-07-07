@@ -9,7 +9,7 @@
 namespace fp;
 /**
  * Configuration Core
- * @version 1.0.1
+ * @version 1.0.2
  * @author Jokin
 **/
 class configuration {
@@ -39,11 +39,11 @@ class configuration {
    * @param  string var
    * @return boolean
   **/
-  public static function analyzeConf($path="./config.inc.php", $var="config"){
+  public static function analyzeConf($path="./config.inc.php"){
     if( is_file($path) ){
-      $$var = include($path);
-      if( isset($$var) && is_array($$var) ){
-        foreach($$var as $k=>$c){
+      $config = include($path);
+      if( isset($config) && is_array($config) ){
+        foreach($config as $k=>$c){
           self::$configurations[mb_strtoupper($k)] = $c;
         }
       }

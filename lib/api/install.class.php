@@ -8,13 +8,14 @@
 // +----------------------------------------------------------------------
 /**
  * Main API
- * @version  1.1.1
+ * @version  1.2.0
  * @author Jokin
 **/
 class install {
   public function getBkt(){
     if( isset($_POST['ak'], $_POST['sk'], $_POST['sp']) ){
-      $bkt = fp\sdk::getBkt($_POST['ak'], $_POST['sk']);
+      self::sdkNeeded();
+      $bkt = fp\sdk\oss::getBucket($_POST['ak'], $_POST['sk']);
       if( !$bkt ){
         $err['code'] = "JPCAE03";
         $err['msg'] = "failed to get Bucket";
@@ -35,8 +36,9 @@ class install {
     }
   }
   public function getDomain(){
+    self::sdkNeeded();
     if( isset($_POST['ak'], $_POST['sk'], $_POST['bkt'], $_POST['sp']) ){
-      $domain = fp\sdk::getDoamin($_POST['ak'], $_POST['sk'], $_POST['bkt']);
+      $domain = fp\sdk\oss::getDoamin($_POST['ak'], $_POST['sk'], $_POST['bkt']);
       if( method_exists($domain, "message") ){
         $err['code'] = "JPCAE02";
         $err['msg'] = $domain->message();
@@ -90,6 +92,21 @@ class install {
       $err['code'] = "JPCAE01";
       $err['msg'] = "bad infomation";
       $err['msg_zh'] = "提交的数据不合法";
+      exit(json_encode($err));
+    }
+  }
+  private static function sdkNeeded(){
+    if( class_exists('\fp\sdk\oss') ){
+      return ;
+    }
+    $path = './lib/sdk/'.strtolower($_POST['sp']).'.class.php';
+    if( is_file($path) ){
+      include_once $path;
+      fp\sdk\oss::init();
+    }else{
+      $err['code'] = "JPCAE07";
+      $err['msg'] = "bad env";
+      $err['msg_zh'] = "程序运行时出错";
       exit(json_encode($err));
     }
   }

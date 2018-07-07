@@ -48,7 +48,7 @@ class template {
       }else{
         $marker = "";
       }
-      $files = sdk::getFiles($prefix, $marker);
+      $files = sdk\oss::getFiles(C('AK'), C('SK'), C('BKT'), $prefix, $marker);
       // 传入数据
       $d = json_encode($files);
       $d = str_replace("\"", "\\\"", $d);

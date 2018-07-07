@@ -9,7 +9,7 @@
 class qiniu {
   public function del(){
     if( isset($_GET['key']) ){
-      $res = fp\sdk::delFile($_GET['key']);
+      $res = fp\sdk\oss::delFile($_GET['key']);
       if($res){
         $err['code'] = "JPCAE02";
         $err['msg'] = $res->message();
@@ -30,7 +30,7 @@ class qiniu {
   }
   public function download(){
     if( isset($_GET['url']) && !empty($_GET['url']) ){
-      $res = fp\sdk::getDownloadUrl($_GET['url']);
+      $res = fp\sdk\oss::getDownloadUrl(C('AK'), C('SK'), $_GET['url']);
       $err['code'] = "0";
       $err['msg'] = "success";
       $err['msg_zh'] = "成功获取下载链接";
@@ -45,7 +45,7 @@ class qiniu {
   }
   public function rename(){
     if( isset($_POST['okey']) && !empty($_POST['key']) ){
-      $res = fp\sdk::simpleMove($_POST['okey'], $_POST['key'], true);
+      $res = fp\sdk\oss::rename(C('AK'), C('SK'), C('BKT'), $_POST['okey'], $_POST['key'], true);
       $err['code'] = "0";
       $err['msg'] = "success";
       $err['msg_zh'] = "重命名成功";

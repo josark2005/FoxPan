@@ -6,22 +6,24 @@
 // +----------------------------------------------------------------------
 // | Author: Jokin <Jokin@twocola.com>
 // +----------------------------------------------------------------------
+
 namespace fp;
+
 /**
  * Core
  * @author Jokin
-**/
+ */
 class Core {
   /**
    * 初始化系统
    * @param  void
    * @return void
-  **/
+   */
   public static function initialize(){
     // 基本定义
     define("NAME", "FoxPan");
     define("NAME_CN", "狐云");
-    define("VERSION", "0.0.4");
+    define("VERSION", "0.1.0");
     // 环境版本判断
     if( version_compare(PHP_VERSION ,"5.6.0" ,"<") ){
       die("您的PHP版本必须要大于等于5.6.0才能正常运行本程序");
@@ -43,7 +45,7 @@ class Core {
     // 初始化
     initialize::atCore();
     // 载入SDK
-    sdk::loader();
+    sdk\loader::load();
     // View
     if( C("MODE") === router::MODE_API ){
       api::run();
@@ -56,26 +58,28 @@ class Core {
   /**
    * Autoload
    * @param  class string
-   * @return void
-  */
+   * @return boolean
+   */
   public static function autoload($class){
     $root_path = "./";
     $class_exploded = explode("\\", $class);
-    if( $class_exploded[0] == "fp" ){
+    $module = array_shift($class_exploded);
+    if( $module == "fp" ){
       $root_path = "./lib/";
     }
-    $path = $root_path.$class_exploded[1].".class.php";
+    $path = $root_path.join('/', $class_exploded).'.class.php';
     if ( !is_file($path) ){
       return false;
     }
     include $path;
+    return true;
   }
 
   /**
    * verify
    * @param  void
    * @return void
-  **/
+   */
   public static function verify($is_again = false){
     // 检查配置文件
     if( !is_file("./config.inc.php") ){
@@ -95,7 +99,7 @@ class Core {
    * Execute Update
    * @param  void
    * @return void
-  **/
+   */
   public static function exec_update(){
     if( is_file("./_update.php") ){
       include("./_update.php");

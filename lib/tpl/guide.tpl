@@ -10,177 +10,7 @@
     <link rel="stylesheet" href="./lib/tpl/css/fontawesome-all.min.css">
     <script src="./lib/tpl/js/jquery-3.2.1.min.js" charset="utf-8"></script>
     <script src="./lib/tpl/js/bootstrap.bundle.min.js" charset="utf-8"></script>
-    <script type="text/javascript">
-    // Ajax配置
-    var ajax = null;
-    function accept_a(){
-      $("div#s0").addClass("d-none");
-      $("div#s1").addClass("d-none");
-      $("div#s2").removeClass("d-none");
-    }
-    function back2a(){
-      $("div#s0").removeClass("d-none");
-      $("div#s1").removeClass("d-none");
-      $("div#s2").addClass("d-none");
-    }
-    function accept_c(){
-      if( ajax !== null ){
-        ajax.abort();
-      }
-      var sp = $("#sp").val();
-      var ak = $("#ak").val();
-      var sk = $("#sk").val();
-      var bkt = $("#bkt").val();
-      if( sp === "null" || ak === "" || sk === "" || bkt === "" ){
-        alert("请完整填写相关信息");
-        return ;
-      }
-      $("div#s3").addClass("d-none");
-      $("div#s4").removeClass("d-none");
-      $("#domain_p").removeClass("d-none");
-      ajax = $.ajax({
-        url: "?mode=api&install=true&a=install&m=getDomain",
-        data: {"sp":sp, "ak":ak, "sk":sk, "bkt":bkt},
-        type: "post",
-        dataType: "json",
-        timeout: 10000,
-        complete: function(Http, status){
-          if( status === "timeout" ){
-            ajax.abort();
-            alert("连接服务器超时");
-            back2b();
-            return ;
-          }
-        },
-        success: function(data){
-          console.log(data);
-          if( data.code === "0" ){
-            $("#domain_p").addClass("d-none");
-            console.log(data.data.length);
-            if( data.data.length !== 0 ){
-              $("#dm").val(data.data[0]);
-              var qd = data.data.join(",");
-              $("#qd").val(qd);
-            }
-            return ;
-          }else{
-            $("#domain_p").addClass("d-none");
-            alert("获取域名失败：" + data.msg + " [" + data.code +"]");
-            return ;
-          }
-        }
-      });
-    }
-    function back2b(){
-      if( ajax !== null ){
-        ajax.abort();
-      }
-      $("div#s2").removeClass("d-none");
-      $("div#s3").addClass("d-none");
-    }
-    function accept_b(){
-      if( ajax !== null ){
-        ajax.abort();
-      }
-      // get Bkt
-      var sp = $("#sp").val();
-      var ak = $("#ak").val();
-      var sk = $("#sk").val();
-      if( sp === "null" || ak === "" || sk === "" ){
-        alert("请完整填写相关信息");
-        return ;
-      }
-      $("div#s2").addClass("d-none");
-      $("div#s3").removeClass("d-none");
-      $("#bkt_p").removeClass("d-none");
-      ajax = $.ajax({
-        url: "?mode=api&install=true&a=install&m=getBkt",
-        data: {"sp":sp, "ak":ak, "sk":sk},
-        type: "post",
-        dataType: "json",
-        timeout: 10000,
-        complete: function(Http, status){
-          if( status === "timeout" ){
-            ajax.abort();
-            alert("连接服务器超时");
-            back2b();
-            return ;
-          }
-        },
-        success: function(data){
-          console.log(data);
-          if( data.code === "0" ){
-            $("#bkt_p").addClass("d-none");
-            var content = "";
-            $.each(data.data, function(key, value){
-              content += "<option value=\""+value+"\">"+value+"</option>";
-            });
-            $("#bkt_a").append(content);
-            return ;
-          }else{
-            $("#bkt_p").addClass("d-none");
-            $("#_bkt_select").addClass("d-none");
-            alert("获取Bucket失败：" + data.msg + " [" + data.code +"]");
-            return ;
-          }
-        }
-      });
-    }
-    function back2c(){
-      if( ajax !== null ){
-        ajax.abort();
-      }
-      $("div#s3").removeClass("d-none");
-      $("div#s4").addClass("d-none");
-    }
-    function back2d(){
-      $("div#s4").removeClass("d-none");
-      $("div#s5").addClass("d-none");
-    }
-    function accept_d(){
-      if( ajax !== null ){
-        ajax.abort();
-      }
-      $("div#s4").addClass("d-none");
-      $("div#s5").removeClass("d-none");
-    }
-    function accept(){
-      var sp = $("#sp").val();
-      var ak = $("#ak").val();
-      var sk = $("#sk").val();
-      var bkt = $("#bkt").val();
-      var dm = $("#dm").val();
-      var qd = $("#qd").val();
-      var auth_pw = $("#auth_pw").val();
-      if( sp === "null" || ak === "" || sk === "" || bkt === "" || dm ==="" || qd === "" ){
-        alert("信息不完整，请返回重新填写");
-        return ;
-      }
-      ajax = $.ajax({
-        url: "?mode=api&install=true&a=install&m=setOptions",
-        data: {"sp":sp, "ak":ak, "sk":sk, "bkt":bkt, "dm":dm, "qd":qd, "auth_pw":auth_pw},
-        type: "post",
-        dataType: "json",
-        timeout: 10000,
-        complete: function(Http, status){
-          if( status === "timeout" ){
-            alert("连接服务器超时");
-            return ;
-          }
-        },
-        success: function(data){
-          console.log(data);
-          if( data.code === "0" ){
-            location.href="?page=index";
-            return ;
-          }else{
-            alert("设置失败：" + data.msg + " [" + data.code +"]");
-            return ;
-          }
-        }
-      });
-    }
-    </script>
+    <script src="./lib/tpl/js/guide.js" charset="utf-8"></script>
   </head>
   <body>
 
@@ -195,7 +25,7 @@
             </div>
             <div class="card-body table-responsive">
               <p>欢迎使用__NAME__云存储解决方案。<br />
-                请仔细阅读下方引导文案，并在下方的卡片中完成基本信息的填写以便__NAME__对接您的存储中心。
+                请仔细阅读下方引导文案，并在下方的卡片中完成配置引导以便__NAME__对接您的存储中心。
               </p>
               <hr />
               <h3># 非首次安装出现此页面</h3>
@@ -212,7 +42,7 @@
               <hr />
               <h3># 版本信息</h3>
               <ol>
-                <li>主程序版本：__VERSION__</li>
+                <li>主程序版本：<span class="text-danger">__VERSION__</span></li>
               </ol>
               <hr />
               <h3># 许可与声明</h3>
@@ -235,12 +65,13 @@
               <div class="" id="s1">
                 <h3 class="text-center">免责声明</h3>
                 <ol>
-                  <li>本程序基础功能免费开源不收取任何资费（请于官网免费下载），由于第三方存储产生的资费请自行负责，与本程序开发组无关;</li>
-                  <li>本程序不会向开发者递交任何隐私信息，所有联网操作（除文件管理外）均为单向获取;</li>
-                  <li>本程序仅为第三方对象存储的管理方案，请自行确保文件托管的安全性，丢失损坏本程序开发组无法负责;</li>
-                  <li>本程序页面中提供的第三方信息如流量等仅供参考，具体使用情况以用户自行选择的服务提供商（SP）提供的数据为准。</li>
-                  <li>您设置的AK/SK将被程序存储并使用加密算法进行保护，因加密算法可逆，请确保您的服务器环境安全以避免配置文件内的密码被下载与破解。</li>
-                  <li>如果您发现了AK/SK被窃取，请第一时间登录您的服务提供商官网并删除该对AK/SK即可。</li>
+                  <li>基础功能免费开源不收取任何资费（请于官网免费下载），由于第三方存储产生的资费请自行负责，与本程序开发组无关;</li>
+                  <li>我们不会向开发者递交任何隐私信息，所有联网操作（除文件管理外）均为单向获取;</li>
+                  <li>此项目仅为第三方对象存储的管理方案，请自行确保文件托管的安全性，丢失损坏本程序开发组无法负责;</li>
+                  <li>本程序页面中提供的第三方信息如流量等仅供参考，具体使用情况以用户自行选择的服务提供商（SP）提供的数据为准;</li>
+                  <li><span class='text-danger'>您的AK/SK信息将直接保存于根目录cnofig.inc.php文件中，一旦发生泄露，请立刻前往服务提供商控制台删除这对AK/SK;</span></li>
+                  <li>设置过程中，除非您点击最后的提交/保存按钮，程序不会提交任何信息至服务器，即没有即时保存功能；</li>
+                  <li><span class='text-danger'>页面中有红色提示版本为alpha或者beta版本时，程序将不保证数据安全性，操作可能造成数据损坏或丢失！</span></li>
                 </ol>
                 <button type="button" class="btn btn-outline-danger btn-block" onclick="accept_a();">我已阅读上方免责声明并接受，继续设置</button>
               </div>
@@ -361,7 +192,7 @@
                 <hr />
 
                 <div class="clearfix">
-                  <button type="button" class="btn btn-outline-danger float-right" onclick="accept();">保存设置</button>
+                  <button type="button" class="btn btn-outline-danger float-right" onclick="accept();" id='btn_accept'>保存设置</button>
                   <button type="button" class="btn btn-outline-secondary float-right mr-2" onclick="back2d();">上一步</button>
                 </div>
               </div>

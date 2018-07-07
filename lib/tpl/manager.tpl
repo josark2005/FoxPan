@@ -245,7 +245,7 @@
                   <tr id='tpl_files' class="d-none">
                     <td class="text-truncate">~~#1!</td>
                     <td>~~#2!</td>
-                    <td><a class="btn btn-primary btn-sm" href="javascript:;" onclick="manager('~~#1!', '~~#4!','~~#5!', '~~#3!');"><i class="fa-fw far fa-caret-square-down"></i> 操作</a></td>
+                    <td><a class="btn btn-primary btn-sm" href="javascript:;" onclick="manager('~~#6!', '~~#4!','~~#5!', '~~#3!');"><i class="fa-fw far fa-caret-square-down"></i> 操作</a></td>
                   </tr>
                 </tbody>
               </table>
