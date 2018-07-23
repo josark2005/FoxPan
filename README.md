@@ -8,6 +8,10 @@
 
 ---
 
+## 相关公告
+
+**开发阶段，代码仅供参考，不推荐在运营环境使用**
+
 ## 版本与许可
 
 [![GitHub Tag](https://img.shields.io/badge/satus-building-red.svg)](https://github.com/jokin1999/FoxPan)
@@ -29,7 +33,7 @@
 
 ### 使用环境
 
-- PHP 5.6.0及以更新版本
+- PHP >= 7.0
 
 ### 服务支持
 
