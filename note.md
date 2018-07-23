@@ -8,3 +8,7 @@ This file is writen for developers.
   - change `$config=` to `retrun`
   - set `UPDATE_BASIC_URL` to `http://jokin1999.github.io/FoxPan/`
   - decode `AUTH_PW`
+
+## Tags
+
+- `[优化]`
