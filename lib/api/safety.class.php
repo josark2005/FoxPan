@@ -111,12 +111,12 @@ class safety {
   }
 
   public function toggleDebug(){
-    include "./config.inc.php";
+    $config = include "./config.inc.php";
     if( isset($config["DEBUG"]) ){
       unset($config["DEBUG"]);
     }
     $linefeed = PHP_EOL;
-    $content = "<?php{$linefeed}\$config=".var_export($config,true).";";
+    $content = "<?php{$linefeed}return ".var_export($config,true).";";
     $res = file_put_contents("./config.inc.php", $content);
     if( $res ){
       $err['code'] = "0";

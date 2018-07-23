@@ -23,11 +23,7 @@ class Core {
     // 基本定义
     define("NAME", "FoxPan");
     define("NAME_CN", "狐云");
-    define("VERSION", "0.1.0");
-    // 环境版本判断
-    if( version_compare(PHP_VERSION ,"5.6.0" ,"<") ){
-      die("您的PHP版本必须要大于等于5.6.0才能正常运行本程序");
-    }
+    define("VERSION", "0.2.0");
     // 注册autoload方法
     spl_autoload_register("fp\Core::autoload");
     // 载入系统配置
@@ -50,7 +46,7 @@ class Core {
     if( C("MODE") === router::MODE_API ){
       api::run();
     }else{
-      template::run();
+      controller::run();
     }
   }
 
@@ -60,7 +56,7 @@ class Core {
    * @param  class string
    * @return boolean
    */
-  public static function autoload($class){
+  public static function autoload(string $class){
     $root_path = "./";
     $class_exploded = explode("\\", $class);
     $module = array_shift($class_exploded);
@@ -77,10 +73,10 @@ class Core {
 
   /**
    * verify
-   * @param  void
+   * @param  boolean is_again
    * @return void
    */
-  public static function verify($is_again = false){
+  public static function verify(bool $is_again = false){
     // 检查配置文件
     if( !is_file("./config.inc.php") ){
       if( !is_file("./lib/assets/configuration/config.inc.php.tpl") ){

@@ -6,10 +6,10 @@
 // +----------------------------------------------------------------------
 // | Author: Jokin <Jokin@twocola.com>
 // +----------------------------------------------------------------------
-class qiniu {
+class OSSController {
   public function del(){
-    if( isset($_GET['key']) ){
-      $res = fp\sdk\oss::delFile($_GET['key']);
+    if( isset($_POST['key']) && !empty($_POST['key']) ){
+      $res = fp\sdk\oss::del(C('AK'), C('SK'), C('BKT'), $_POST['key']);
       if($res){
         $err['code'] = "JPCAE02";
         $err['msg'] = $res->message();

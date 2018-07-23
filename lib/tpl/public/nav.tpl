@@ -26,6 +26,8 @@
             <a class="dropdown-item" href="?page=configurate"><i class="fas fa-fw fa-cogs"></i> 配置</a>
             <a class="dropdown-item" href="?page=update"><i class="fas fa-fw fa-upload"></i> 升级</a>
             <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="?page=wallpapers"><i class="fas fa-fw fa-images"></i> 壁纸中心</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="?page=about"><i class="fas fa-fw fa-info-circle"></i> 关于</a>
           </div>
         </li>

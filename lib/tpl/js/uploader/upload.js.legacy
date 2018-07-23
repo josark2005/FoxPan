@@ -1,0 +1,141 @@
+var uploader;
+var ctx = '';
+var ctx_all = '';
+var offset = 0;
+var size = 0;
+var chunk_size = 4*1024*1024;
+$(function(){
+  var list_item = $('#list-item').html();
+  var token = $('#token').data('token');
+  var upload_url = $('#upload_url').data('upload-url');
+  uploader = new plupload.Uploader({
+    runtimes:       'html5,html4',
+    browse_button:  'pickfiles',
+    drop_element:   'upload',
+    url:            'https://' + upload_url + '/mkblk/' + chunk_size,
+    filters: {
+      prevent_duplicates : true
+    },
+    max_retries:  1, // 重试1次
+    multipart: false,
+    required_features: 'chunks',
+    chunk_size:   chunk_size,
+    init: {
+      FilesAdded: function(up, files) {
+         plupload.each(files, function(file) {
+           var size = (file.size/1024/1024).toFixed(2);
+           // 文件添加进队列后，处理相关的事情
+           var content = list_item.replace('#id', file.id);
+           content = content.replace('#name', file.name);
+           $('#upload_list').append(content);
+         });
+         up.start();
+       },
+      UploadProgress: function(up, file) {
+        // 每个文件上传时，处理相关的事情
+        $('li#' + file.id).removeClass('bg-secondary');
+        $('li#' + file.id).addClass('bg-primary');
+        $('li#' + file.id + '>span').text(file.percent+'%');
+       },
+      BeforeUpload:  function(up, file) {
+        size = file.size;
+      },
+      BeforeChunkUpload: function(up, file, post, blob, offset) {
+        var blk_size = chunk_size;
+        if( size < chunk_size) {
+          blk_size = size;
+        }else{
+          size -= chunk_size;
+        }
+        console.log(blk_size);
+        up.setOption('headers', {
+          'Host':            upload_url,
+          'Authorization':   'UpToken ' + token
+        });
+        up.setOption('multipart_params', {
+          'token': token,
+          'key': file.name,
+          'ctx': ctx,
+          'nextChunkOffset': offset,
+        })
+        up.setOption('url', 'https://' + upload_url + '/mkblk/' + blk_size);
+      },
+      ChunkUploaded: function(up, file, result){
+        offset = result.offset;
+        ctx = JSON.parse(result.response).ctx;
+        host = JSON.parse(result.response).host;
+        ctx_all += (ctx_all.length === 0) ? ctx : ',' + ctx;
+        // up.setOption('url', 'https://' + upload_url + '/bput/' + ctx + '/' + offset);
+      },
+      FileUploaded: function(up, file, info) {
+        console.log(file);
+        up.setOption('url', 'https://' + upload_url + '/mkblk/' + 4*1024*1024);
+        // 合成文件
+        $.ajax({
+          url: 'https://' + upload_url + '/mkfile/' + file.size + '/key/' + urlsafe(base64.encode(file.name, 'base64')) + '/fname/' + urlsafe(base64.encode(file.name, 'base64')),
+          // url: 'https://' + upload_url + '/mkfile/' + file.size,
+          type: 'post',
+          dataType: 'json',
+          contentType: 'text/plain;charset=UTF-8',
+          data: ctx_all,
+          timeout: 10000,
+          headers: {
+            'Authorization': 'UpToken ' + token
+          },
+          complete: function(XMLHttpRequest, status){
+            console.log(XMLHttpRequest);
+            if( status === 'timeout' ){
+              alert('连接服务器超时');
+            }
+          },
+          success: function(data){
+            console.log(data);
+          },
+          error: function(data){
+            console.log(data);
+          }
+        });
+        $('li#' + file.id).removeClass('bg-primary');
+        $('li#' + file.id).addClass('bg-success');
+        $('li#' + file.id + '>button').remove();
+        $('li#' + file.id + '>span').remove();
+        setTimeout(function(){
+          $('li#' + file.id).remove();
+        }, 10000);
+      },
+      Error: function(up, file, errTip) {
+        console.log(file);
+        uploader.stop();
+        $('li#' + file.id).removeClass('bg-primary');
+        $('li#' + file.id).addClass('bg-danger');
+        console.log(file.status);
+        switch (file.status) {
+          case 614:
+            $('li#' + file.file.id).removeClass('bg-primary');
+            $('li#' + file.file.id).addClass('bg-success');
+            $('li#' + file.file.id + '>button').remove();
+            $('li#' + file.file.id + '>span').remove();
+            break;
+          default:
+            alert('上传时出错');
+        }
+      }
+    }
+  });
+  uploader.init();
+});
+function removeFile(id){
+  uploader.stop();
+  for(var i in uploader.files){
+    if(uploader.files[i].id === id){
+      var toremove = i;
+    }
+  }
+  var file = uploader.files.splice(toremove, 1);
+  $('li#' + file[0].id).remove();
+  uploader.start();
+}
+var base64=(function(){var base64Chars=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","0","1","2","3","4","5","6","7","8","9","+","/"],encode={"base64":codeBase64},decode={"base64":decodeBase64};handleFormat={"utf-8":toUTF8Binary};function stringToBinary(str,size,encodeType){var i,len,binary="";for(i=0,len=str.length;i<len;i++){binary=binary+handleFormat[encodeType.toLowerCase()](str.charCodeAt(i))}return binary}function toUTF8Binary(unicode){var len,binary="",star=0,bitStream=unicode.toString(2),bitLen=bitStream.length,i;if(unicode>=0&&unicode<=127){binary=bitStream;for(i=0,len=8;i<len-bitLen;i++){binary=0+binary}}else{if(unicode>=128&&unicode<=2047){binary=bitStream;for(i=0,len=11;i<len-bitLen;i++){binary=0+binary}binary="110"+binary.substr(0,5)+"10"+binary.substr(5,6)}else{if(unicode>=2048&&unicode<=65535){binary=bitStream;for(i=0,len=16;i<len-bitLen;i++){binary=0+binary}binary="1110"+binary.substr(0,4)+"10"+binary.substr(4,6)+"10"+binary.substr(10,6)}else{if(unicode>=65536&&unicode<=1114111){binary=bitStream;for(i=0,len=21;i<len-bitLen;i++){binary=0+binary}binary="11110"+binary.substr(0,3)+"10"+binary.substr(3,6)+"10"+binary.substr(9,6)+"10"+binary.substr(15,6)}}}}return binary}function base64Parse(binary24,flag){var i,len,result="",decode;if(flag==1){for(i=0;i<4;i++){decode=parseInt(binary24.substr(i*6,6),2);result=result+base64Chars[decode]}}else{for(i=0,len=Math.floor(flag/6);i<len+1;i++){decode=parseInt(binary24.substr(i*6,6),2);result=result+base64Chars[decode]}for(i=0;i<3-len;i++){result=result+"="}}return result}function codeBase64(str){var i,len,rem,mer,result="",strBinaryAry=[],binary=stringToBinary(str,8,"utf-8");len=binary.length;mer=Math.floor(len/24);rem=len%24;for(i=0;i<mer;i++){result=result+base64Parse(binary.substr(i*24,24),1)}remCode=binary.substr(len-rem,rem);if(rem>0){for(i=0;i<24-rem;i++){remCode=remCode+0}result=result+base64Parse(remCode,rem)}return result}function decodeBase64(str){var i,j,k,len,t=0,curbinary,start=0,flag=[{str:"0",len:8},{str:"110",len:11},{str:"1110",len:16},{str:"11110",len:21}],binary="",newStr="";for(i=0,len=str.length;i<len;i++){var curbinary=base64Chars.indexOf(str.charAt(i)).toString(2);if(curbinary!="-1"){for(j=0;curbinary.length<6;j++){curbinary=0+curbinary}binary=binary+curbinary}if(i>=len-2&&str.charAt(i)=="="){++t}}if(t==0){len=binary.length}else{len=binary.length-(6-2*t)}for(;start<len;){for(j=0;j<4;j++){if(binary.indexOf(flag[j].str,start)==start){if(flag[j].len==8){newStr=newStr+String.fromCharCode(parseInt(binary.substr(start,8),2))}else{if(flag[j].len==11){newStr=newStr+String.fromCharCode(parsetInt(binary.substr(start+3,5)+binary.substr(start+10,6),2))}else{if(flag[j].len==16){newStr=newStr+String.fromCharCode(parsetInt(binary.substr(start+4,4)+binary.substr(start+10,6)+binary.substr(start+18,6),2))}else{if(flag[j].len==21){newStr=newStr+String.fromCharCode(parseInt(binary.substr(start+5,3)+binary.substr(start+10,6)+binary.substr(start+18,6)+binary.substr(start+26,6),2))}}}}start=start+flag[j].len;break}}}binary=null;return newStr}return{encode:function(str,type){return encode[type](str)},decode:function(str,type){return decode[type](str)}}})();
+function urlsafe(data){
+  return data.replace(/\//g, '_').replace(/\+/g, '-');
+}

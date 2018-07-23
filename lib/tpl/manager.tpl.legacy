@@ -16,12 +16,6 @@
     <script type="text/javascript">
       var prefix = '{$prefix}';
     </script>
-    <script type="text/template" id="tpl-btn-dd-item">
-      <a class="dropdown-item text-dark" href="javascript:;" onclick="#click">#action</a>
-    </script>
-    <script type="text/template" id="tpl-btn-dd-divider">
-      <div class="dropdown-divider"></div>
-    </script>
   </head>
   <body>
     {_nav_}
@@ -36,51 +30,29 @@
             </div>
             <div class="card-body">
 
-                  <table class="table table-hover table-responsive-sm">
-                    <col style="max-width: 80%" />
-                    <col style="min-width: 180px;" />
-                    <col style="min-width: 180px;" />
-                    <thead>
-                      <tr>
-                        <th scope="col">名称</th>
-                        <th scope="col">大小</th>
-                        <th scope="col">操作</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <foreach name="folders">
-                        <tr>
-                          <td class="text-truncate">
-                            <a class="text-dark" href="?page=manager&prefix=($value:key)" title="($value:name)">
-                              <i class="fas fa-folder-open fa-fw fa-2x"></i> ($value:name)
-                            </a>
-                          </td>
-                          <td>文件夹</td>
-                          <td><button class="btn btn-sm btn-info" onclick="location.href='?page=manager&prefix=($value:key)'">打开</button></td>
-                        </tr>
-                      </foreach>
-                      <foreach name="files">
-                        <tr id="box_($value:hash)">
-                          <td class="text-truncate">
-                            <a class="text-dark" name="file-link" href="http://__DM__/($value:key)" id="($value:hash)" title="($value:name)"
-                             data-name="($value:name_fixed)" data-key="($value:key_fixed)" data-hash="($value:hash)" data-size="($value:fsize)">
-                              <i class="fas fa-file fa-fw fa-2x"></i> ($value:name)
-                            </a>
-                          </td>
-                          <td id='size-($value:hash)'>0</td>
-                          <td>
-                            <div class="dropdown">
-                              <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="btn-($value:hash)"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                操作
-                              </button>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="btn-dd-($value:hash)"></div>
-                            </div>
-                          </td>
-                        </tr>
-                      </foreach>
-                  </table>
+              <div class="row px-4">
 
+                <foreach name="folders">
+                  <div class="col-md-2 col-sm-4 m-box" title="($value:name)">
+                    <a class="text-dark m-text-nd" href="javascript:;" onclick="javascript:location.href='?page=manager&prefix=($value:key)';">
+                      <div class="m-icon text-center text-truncate mx-auto mb-4">
+                        <i class="fas fa-folder-open fa-3x"></i><br /><p>($value:name)</p>
+                      </div>
+                    </a>
+                  </div>
+                </foreach>
+
+                <foreach name="files">
+                  <div class="col-md-2 col-sm-4 m-box" id="box_($value:hash)" title="($value:name)">
+                    <a class="text-dark m-text-nd" name="file-link" id="($value:hash)" href="http://__DM__/($value:key)" target="_blank" data-name="($value:name_fixed)" data-key="($value:key_fixed)" data-hash="($value:hash)">
+                      <div class="m-icon text-center mx-auto mb-4">
+                        <i class="fas fa-file fa-3x"></i><br /><p name="file-name" class="text-truncate">($value:name)</p>
+                      </div>
+                    </a>
+                  </div>
+                </foreach>
+
+              </div>
 
             </div>
             <div class="card-footer">

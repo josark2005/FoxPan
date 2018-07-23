@@ -10,7 +10,7 @@ namespace fp;
 /**
  * Ziper
  * @version 1.1.0
- * @author Jokin
+ * @author  Jokin
 **/
 class ziper {
   public $zip = null;

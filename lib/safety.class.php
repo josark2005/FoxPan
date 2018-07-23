@@ -9,7 +9,7 @@
 /**
  * Safety Core
  * @version 1.0.2
- * @author Jokin
+ * @author  Jokin
 **/
 namespace fp;
 class safety {

@@ -8,11 +8,11 @@
 // +----------------------------------------------------------------------
 /**
  * Read Configuration
- * @param  string name
- * @param  string value
- * @param  boolean is_write
+ * @param  string   name
+ * @param  string   value
+ * @param  boolean  is_write
  * @return mixed
-**/
+ */
 function C($name, $value = "", $is_write = false){
   $name = strtoupper($name);
   $conf = \fp\configuration::init();

@@ -10,7 +10,7 @@ namespace fp;
 /**
  * Configuration Core
  * @version 1.0.2
- * @author Jokin
+ * @author  Jokin
 **/
 class configuration {
   private static $self = null;

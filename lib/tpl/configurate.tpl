@@ -341,7 +341,6 @@
 
                 <div class="clearfix">
                   <button type="button" class="btn btn-outline-danger float-right" onclick="accept();">保存设置</button>
-                  <button type="button" class="btn btn-outline-secondary float-right mr-2" onclick="back2d();">上一步</button>
                 </div>
               </div>
 

@@ -10,12 +10,6 @@
     <script src="./lib/tpl/js/bootstrap.bundle.min.js" charset="utf-8"></script>
     {_common_var_}
     <script src="./lib/tpl/js/main.js?ver=__VERSION__" charset="utf-8"></script>
-    <script type="text/javascript">
-      $(function(){
-        document.getElementById("SP").innerHTML = (sp === "") ? "缺失" : sp;
-        document.getElementById("flux").innerHTML = flux;
-      });
-    </script>
   </head>
   <body>
 
@@ -34,6 +28,10 @@
     </div>
 
     <div class="container mt-4" id="container">
+      <h2>关于__NAME__</h2>
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;__NAME__是一款免费、开源的产品，使用操作对象存储空间的接口，以更人性化的方式对存储空间进行操作，免去了反复登录存储管理中心的麻烦。</p>
+
+      <hr />
       <div class="row">
         <div class="col-md-6 col-sm-12">
           <div class="card">
@@ -41,7 +39,7 @@
             <div class="card-body">
               <p>在使用过程中有任何疑问或发现了Bug欢迎您发送邮件到 <strong>pc@twocola.com</strong>，请注明以下内容：</p>
               <ol>
-                <li>反馈项目：__NANE__</li>
+                <li>反馈项目：__NAME_CN__/__NAME__</li>
                 <li>Bug复现流程</li>
                 <li>即时联系方式如QQ、微信等。</li>
               </ol>

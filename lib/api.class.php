@@ -9,14 +9,16 @@
 namespace fp;
 /**
  * API Processor
- * @version 1.0.0
- * @author Jokin
+ * @version 1.0.1
+ * @author  Jokin
 **/
 class api {
 
 public static $public_api = array(
-  "main"  => array("login"),
-  "zen"   => array("getZen"),
+  'main'  => array(
+    'login',
+    'logout'
+  ),
 );
 
 public static function run(){
@@ -32,7 +34,7 @@ public static function run(){
       $api->$m();
     }else{
       $err['code'] = "JPCAE001";
-      $err['msg'] = "bad api.";
+      $err['msg'] = "bad api request.";
       $err['msg_zh'] = "无效的API访问请求";
       exit(json_encode($err));
     }

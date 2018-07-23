@@ -8,82 +8,59 @@
 // +----------------------------------------------------------------------
 namespace fp;
 /**
- * Template Processor
- * @version 1.2.3
+ * Template Processing Unit
+ * @version 1.0.0
  * @author Jokin
 **/
 class template {
-  public static $public_page = array("login");
 
-  public static $page = "manager";
+  public static $assign = array(
+    'array' => array(),
+    'single'  => array(),
+  );
 
-  public static function run(){
-    // 授权管理
-    self::auth();
-    $page = self::$page = P;  // 初始页面在初始化类中设置
-    // 默认跳转页
-    if( !is_file("./lib/tpl/{$page}.tpl") ){
-      $page = "manager";  // 页面不存在自动跳转到首页
-      self::$page = "manager";
-    }
-    $page = file_get_contents("./lib/tpl/{$page}.tpl");
-    // download
-    if( self::$page == "manager" ){
-      // 获取前缀定义
-      C("PREFIX_LEN", 0, true);
-      if( isset($_GET['prefix']) && !empty($_GET['prefix']) ){
-        $prefix = $_GET['prefix'];
-        C("PREFIX_LEN", mb_strlen($prefix), true);
-        if( mb_substr($prefix, mb_strlen($prefix)-1, 1) === "/"  ){
-          $_prefix = mb_substr($prefix, 0, mb_strlen($prefix)-1);
-          C("BKTRS_PREFIX", json_encode(explode("/", $_prefix)));
-        }
-      }else{
-        $prefix = "";
-        C("BKTRS_PREFIX", json_encode($prefix));
-      }
-      // 获取标记
-      if( isset($_GET['marker']) && !empty($_GET['marker']) ){
-        $marker = $_GET['marker'];
-      }else{
-        $marker = "";
-      }
-      $files = sdk\oss::getFiles(C('AK'), C('SK'), C('BKT'), $prefix, $marker);
-      // 传入数据
-      $d = json_encode($files);
-      $d = str_replace("\"", "\\\"", $d);
-      C("PAGE_MANAGER_DATA_FILELIST", $d);
+  public static function process(string $name){
+    if( is_file("./lib/tpl/{$name}.tpl") ){
+      $page = file_get_contents("./lib/tpl/{$name}.tpl");
+    }else{
+      die('[Controller]您要访问的页面不存在，请检查程序是否完整！');
     }
     // 处理
-    $page = self::clearComments($page);
-    $page = self::pageInclude($page);
-    $page = self::conReference($page);
-    echo $page;
+    $content = self::clearComments($page);
+    $content = self::pageInclude($content);
+    $content = self::conReference($content);
+    $content = self::foreach($content);
+    // 变量引用载入
+    foreach (self::$assign['single'] as $key => $value) {
+      $content = str_replace("{\${$key}}", $value, $content);
+    }
+    echo $content;
+    self::initialize();
   }
 
   /**
-   * clearComments
+   * 注释清除
    * @param  string page
    * @return string page
    */
-   public static function clearComments($page){
-     $pattern = "/<!--([\s\S]*)-->/iUm";
-     $preg = preg_match_all($pattern,$page,$matches);
-     if($preg!=0){
-       for($i=0;$i<count($matches[0]);$i++){
-         $page = str_replace($matches[0][$i],"",$page);
-       }
-     }
-     return $page;
-   }
+  public static function clearComments(string $page){
+    $pattern = "/<!--([\s\S]*)-->/iUm";
+    $preg = preg_match_all($pattern,$page,$matches);
+    if($preg!=0){
+      for($i=0;$i<count($matches[0]);$i++){
+        $page = str_replace($matches[0][$i],"",$page);
+      }
+    }
+    return $page;
+  }
 
 
   /**
-  * 常量引用
-  * @param  string  content 内容
-  * @return string  content
-  **/
-  public static function conReference($content){
+   * 常量引用
+   * @param  string  content
+   * @return string
+   */
+  public static function conReference(string $content){
     $pattern = "/__(.+)__/U";
     $preg = preg_match_all($pattern,$content,$matches);
     if($preg !== 0){
@@ -111,11 +88,80 @@ class template {
   }
 
   /**
-  * 页面引用
-  * @param  string  content 内容
-  * @return string  content
-  **/
-  public static function pageInclude($content){
+   * 变量引用
+   * @param  string name
+   * @param  mixed var
+   * @return void
+   */
+  public static function assign(string $name, $var){
+    $type = 'single';
+    if( is_array($var) ){
+      $type = 'array';
+    }
+    self::$assign[$type][$name] =  $var;
+    self::$assign['all'][$name] =  $var;
+  }
+
+  /**
+   * foreach模板处理
+   * @param  string content
+   * @return string
+   */
+  public static function foreach(string $content){
+    $pattern = '/<foreach[\s]*name=[\'|\"](?<name>[\s\S]*)[\'|\"][\s]*>(?<container>[\s\S]*)<\/foreach>/iUm';
+    $preg = preg_match_all($pattern, $content, $matches);
+    // var_dump($matches);
+    if ($preg !== 0) {
+      for ($i=0; $i < count($matches[0]); $i++) {
+        $name = $matches['name'][$i];
+        // 无效循环清除
+        if( !isset(self::$assign['array'][$name]) ){
+          $content = str_replace($matches[0][$i], '', $content);
+          continue;
+        }
+        $result = '';
+        $values = self::$assign['array'][$name];
+        // 单层变量匹配
+        $res = '';
+        foreach ($values as $key => $value) {
+          if( is_array($value) ) continue;
+          $res = str_replace('($value)', $value, $matches['container'][$i]);
+          $res = str_replace('($key)', $key, $res);
+          $result .= $res;
+        }
+        // 多层变量匹配
+        // [优化]：去除重复项
+        $res = '';
+        $pattern3 = '/\(\$value(?<sub>:[\s\S]+)+\)/U';
+        $preg3 = preg_match_all($pattern3, $matches['container'][$i], $matches3);
+        if( $preg3 !== 0 ){
+          for ($j=0; $j < count($values); $j++) {
+            $res = $matches['container'][$i];
+            for ($k=0; $k < count($matches3[0]); $k++) {
+              $sub = explode(':', trim($matches3['sub'][$k], ':'));
+              $vals = $values[$j];
+              // 取出value
+              foreach ($sub as $val) {
+                $value = isset($vals[$val]) ? $vals[$val] : '';
+              }
+              if( is_array($value) ) continue;
+              $res = str_replace($matches3[0][$k], $value, $res);
+            }
+            $result .= $res;
+          }
+        }
+        $content = str_replace($matches[0][$i], $result, $content);
+      }
+    }
+    return $content;
+  }
+
+  /**
+   * 页面引用
+   * @param  string  content 内容
+   * @return string
+   */
+  public static function pageInclude(string $content){
     $path = "./lib/tpl/public/";
     $suffix = ".tpl";
     $pattern = "/{_(.+)_}/U";
@@ -134,17 +180,16 @@ class template {
     return $content;
   }
 
-  private static function auth(){
-    $auth = safety::is_auth();
-    if( !$auth && !in_array(P, self::$public_page, true) ){
-      router::redirect("login");
-      exit();
-    }
-    // 登录状态自动跳转
-    if( $auth && C("PAGE") === "login" ){
-      router::redirect("index", true);
-      exit();
-    }
+  /**
+   * 初始化
+   * @param  void
+   * @return void
+   */
+  private static function initialize(){
+    self::$assign = array(
+      'array' => array(),
+      'single'  => array(),
+    );
   }
 
 }

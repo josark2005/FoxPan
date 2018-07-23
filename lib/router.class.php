@@ -8,8 +8,8 @@
 // +----------------------------------------------------------------------
 /**
  * Router Core
- * @version 1.1.0
- * @author Jokin
+ * @version 1.1.1
+ * @author  Jokin
 **/
 namespace fp;
 class router {
@@ -19,14 +19,17 @@ class router {
   /**
    * Analyze Path
    * @param  string path
-   * @return mixed
+   * @return void
   **/
   public static function analyze($path){
-    $analyzed = null; // initialize
+    // 初始化值
+    $analyzed = null;
+    // 判断模式
     if( isset($path['mode']) && $path['mode'] === "api"){
       $analyzed['mode'] = self::MODE_API;
       C("MODE", self::MODE_API);
     }
+    // 判断访问区
     if( isset($path['page']) ){
       C("PAGE", $path['page']);
     }
@@ -34,7 +37,8 @@ class router {
   }
   /**
    * redirect
-   * @param  string path
+   * @param  string   path
+   * @param  boolean  force
    * @return void
   **/
   public static function redirect($path, $force = false){

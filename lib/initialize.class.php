@@ -6,24 +6,37 @@
 // +----------------------------------------------------------------------
 // | Author: Jokin <Jokin@twocola.com>
 // +----------------------------------------------------------------------
+
 namespace fp;
+
+/**
+ * Initializating Unit
+ * @version 1.0.0
+ * @author  Jokin
+ */
+
 class initialize {
+
+  /**
+   * 于核心初始化
+   * @param  void
+   * @return void
+   */
   public static function atCore(){
     // 安全头
     header('X-Frame-Options: Deny');
-    // 注册行为
+    // 注册API行为
     if( C("MODE") === router::MODE_API ){
-      // api
-      define("A", isset($_GET['a'])?$_GET['a']:mb_strtolower(C("SP")));
-      define("M", isset($_GET['m'])?$_GET['m']:false);
+      define('A', isset($_GET['a']) ? $_GET['a'] : mb_strtolower(C('SP')) );
+      define('M', isset($_GET['m']) ? $_GET['m'] : false);
     }else{
-      define("P", isset($_GET['page'])?$_GET['page']:"index");
+      define('PAGE', isset($_GET['page']) ? $_GET['page'] : 'index');
     }
     // Cookie续期
     if( isset($_COOKIE['token']) ){
-      setcookie("token", $_COOKIE['token'], time() + 3600);
+      setcookie('token', $_COOKIE['token'], time() + 3600);
     }
-    C("FLUX", "-1", true);
+    C('FLUX', '-1', true);
     // 安全检测
     // 调试模式检测
     if( C("DEBUG") === true ){
@@ -54,5 +67,6 @@ class initialize {
       C("_DANGER_API_METHOD", "delUpd");
     }
   }
+
 }
 ?>

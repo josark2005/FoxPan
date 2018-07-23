@@ -57,9 +57,10 @@
       }
     </script>
   </head>
+  <!-- <body class="bg-secondary" style="background: url(./lib/tpl/imgs/background-0.jpg) no-repeat; background-position: center center; background-attachment: fixed;"> -->
   <body class="bg-secondary">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="box-shadow:0 0 150px 1px rgb(52, 58, 64);" id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="box-shadow:0 0 150px 1px rgba(52, 58, 64); background-color: rgba(52, 58, 64 ,0.7);" id="navbar">
       <div class="container">
         <a class="navbar-brand" href="javascript:;">
           <img src="./lib/tpl/imgs/logo.png" width="30" height="30" alt="logo">
@@ -87,17 +88,7 @@
               </div>
               <a class="text-muted small float-right" href="http://jokin1999.github.io/FoxPan/manual/forgetAuthPW.html" target="_blank">忘记密码？</a>
             </div>
-            <div class="card-footer text-muted">
-              <small class="clear-fix">
-                <span class="float-left">
-                  <a class="text-muted" href="http://jokin1999.github.io/FoxPan" target="_blank">官方网站</a>
-                  |
-                  <a class="text-muted fab fa-github" href="http://github.com/Jokin1999/FoxPan" target="_blank"> GitHub</a>
-                  |
-                  <a class="text-muted far fa-list-alt" href="http://foxpan.twocola.com/notice/update_logs.html" target="_blank"> 更新日志</a>
-                </span>
-              </small>
-            </div>
+            {_login_footer_}
           </div>
         </div>
 

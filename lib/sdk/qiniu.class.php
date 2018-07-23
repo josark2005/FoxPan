@@ -9,7 +9,7 @@
 
 /**
  * QINIU SDK DRIVER
- * @version  1.0.0
+ * @version  1.0.1
  * @author Jokin
  */
 
@@ -86,13 +86,13 @@ class oss implements \fp\sdk {
    * @param  string marker
    * @return mixed
    */
-  public static function getFiles(string $ak, string $sk, string $bkt, string $prefix, string $marker){
+  public static function getFiles(string $ak, string $sk, string $bkt, string $prefix, string $marker=''){
     $auth = new \Qiniu\Auth($ak, $sk);
     $bucketManager = new \Qiniu\Storage\BucketManager($auth);
     $limit = 200;
     $delimiter = '/';
     // 列举文件
-    $res = null;
+    $res = array();
     do {
         list($ret, $err) = $bucketManager->listFiles($bkt, $prefix, $marker, $limit, $delimiter);
         if ($err !== null) {
@@ -252,7 +252,6 @@ class oss implements \fp\sdk {
     $expires = $expires;
     $policy = null;
     $upToken = $auth->uploadToken($bkt, null, $expires, $policy, true);
-    C("UPTOKEN", $upToken);
     return $upToken;
   }
 }

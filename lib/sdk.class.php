@@ -11,7 +11,7 @@ namespace fp;
 
 /**
  * SDK Interface
- * @version 1.0.0
+ * @version 1.0.1
  */
 interface sdk {
 
@@ -63,7 +63,7 @@ interface sdk {
    * @param  string marker
    * @return mixed
    */
-  public static function getFiles(string $ak, string $sk, string $bkt, string $path, string $marker);
+  public static function getFiles(string $ak, string $sk, string $bkt, string $path, string $marker='');
 
   /**
    * 移动文件

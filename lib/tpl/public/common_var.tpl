@@ -21,7 +21,6 @@
       dataType: "json",
       timeout: 10000,
       complete: function(XMLHttpRequest, status){
-        console.log(XMLHttpRequest);
         if( status === "timeout" ){
           alert("连接服务器超时，请稍候再试");
         }
