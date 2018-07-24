@@ -29,6 +29,10 @@
 - **壁纸中心** [查看](./wallpapers/index.md)
 - **联系我们** [查看](./contact.md)
 
+## 服务提供商相关
+
+- **七牛云** [查看](./sp/qiniu/index.md)
+
 ---
 
 ## F&Q
