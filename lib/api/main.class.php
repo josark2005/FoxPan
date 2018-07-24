@@ -6,11 +6,12 @@
 // +----------------------------------------------------------------------
 // | Author: Jokin <Jokin@twocola.com>
 // +----------------------------------------------------------------------
+
 /**
  * Main API
- * @version  1.0.0
- * @author Jokin
-**/
+ * @version  1.0.1
+ * @author   Jokin
+ */
 class main {
   public function login(){
     if( isset($_POST['pw']) && !empty($_POST['pw']) ){
@@ -121,15 +122,6 @@ class main {
       $err['msg_zh'] = "提交的数据不合法";
       echo json_encode($err);
     }
-  }
-
-  public function getLastestVer(){
-    $path = C("update_basic_url")."release/support_status.md";
-    $ver = @file_get_contents($path);
-    $ver = htmlspecialchars_decode($ver);
-    $ver = json_decode($ver, true); // 解析为数组
-    $ver = isset($ver[VERSION]['version']) ? $ver[VERSION]['version'] : C("VERSION");
-    echo json_encode($ver);
   }
 }
 ?>

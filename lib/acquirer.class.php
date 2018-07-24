@@ -6,24 +6,29 @@
 // +----------------------------------------------------------------------
 // | Author: Jokin <Jokin@twocola.com>
 // +----------------------------------------------------------------------
+
+namespace fp;
+
 /**
- * Geter
- * @version  1.0.0
- * @author Jokin
-**/
-class geter {
+ * Acquirer
+ * @version 1.0.0
+ * @author  Jokin
+ */
+class acquirer {
+
   /**
    * 模拟访问
    * @param  string url
-   * @param  array post
+   * @param  array  post
    * @return mixed
   **/
-  public function get($url, $post = false){
+  public static function get($url, $post = false){
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HEADER, FALSE);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
     if( $post !== false ){
       curl_setopt($ch, CURLOPT_POST, TRUE);
       curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -42,9 +47,11 @@ class geter {
    * @param  void
    * @return void
   **/
-  public function getpi(){
+  public static function getpi() : void {
     $info = fp\tserver::getProjectInfo(NAME);
     exit(json_encode($info));
   }
+
 }
+
 ?>

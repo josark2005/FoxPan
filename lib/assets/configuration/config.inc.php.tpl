@@ -7,7 +7,5 @@ return array (
   'DM' => false,
   'QD' => false,
   'AUTH_PW' => '',
-  'WALLPAPERS'  => array (
-    'LOGIN' => false
-  ),
+  'WALLPAPER_LOGIN' => false,
 );

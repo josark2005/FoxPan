@@ -57,8 +57,8 @@
       }
     </script>
   </head>
-  <!-- <body class="bg-secondary" style="background: url(./lib/tpl/imgs/background-0.jpg) no-repeat; background-position: center center; background-attachment: fixed;"> -->
-  <body class="bg-secondary">
+  <body class="bg-secondary" style="background: url(__WALLPAPER_LOGIN__) no-repeat; background-position: center center; background-attachment: fixed;">
+  <!-- <body class="bg-secondary"> -->
 
     <nav class="navbar navbar-expand-lg navbar-dark" style="box-shadow:0 0 150px 1px rgba(52, 58, 64); background-color: rgba(52, 58, 64 ,0.7);" id="navbar">
       <div class="container">

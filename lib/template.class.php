@@ -81,6 +81,9 @@ class template {
       $matches = $res;
       for($i=0; $i<count($matches[0]); $i++){
         $const = C($matches[1][$i]);
+        if (is_array($const)) {
+          continue;
+        }
         $content = str_replace($matches[0][$i],$const,$content);
       }
     }

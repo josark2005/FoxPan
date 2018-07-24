@@ -6,22 +6,27 @@
 // +----------------------------------------------------------------------
 // | Author: Jokin <Jokin@twocola.com>
 // +----------------------------------------------------------------------
+
 namespace fp;
+
 /**
  * Twocola Server
- * @version  1.0.2
+ * @version  1.0.4
  * @author Jokin
-**/
+ */
 class tserver {
 
-  private static $basic_url = "http://jokin1999.github.io/twocola-server";
+  // 国内服务器
+  private static $basic_url = "https://jokin.coding.me/twocola-server";
+  // private static $basic_url = "https://jokin1999.github.io/twocola-server";
 
   /**
    * 获取项目服务地址
-   * @param  string project
+   * @param  string  project
+   * @param  boolean need_arkslash
    * @return string
-  **/
-  public static function getProjectUrl($project, $need_arkslash = false){
+   */
+  public static function getProjectUrl(string $project, bool $need_arkslash = false) : string {
     $url = self::fixUrl(self::$basic_url, true).$project;
     $url = self::fixUrl($url, $need_arkslash);
     return $url;
@@ -29,11 +34,11 @@ class tserver {
 
   /**
    * 地址兼容
-   * @param  string url
-   * @param  boolean need_arkslash
+   * @param  string   url
+   * @param  boolean  need_arkslash
    * @return string
-  **/
-  public static function fixUrl($url, $need_arkslash = false){
+   */
+  public static function fixUrl(string $url, bool $need_arkslash = false) : string {
     if( mb_substr($url, mb_strlen($url)-1, mb_strlen($url)) === "/" ){
       if( $need_arkslash === true ){
         return $url;
@@ -53,15 +58,16 @@ class tserver {
    * 获取项目信息
    * @param  string name
    * @param  string suffix
-   * @return void
-  **/
-  public static function getProjectInfo($name, $suffix=".md"){
+   * @return mixed
+   */
+  public static function getProjectInfo($name, $suffix=".md") {
     $url = self::getProjectUrl($name).$suffix;
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_HEADER, FALSE);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
     $res = curl_exec($ch);
     $errno = curl_errno($ch);
     if( $errno !== 0 ){
@@ -76,8 +82,8 @@ class tserver {
    * @param  string name
    * @param  string suffix
    * @return mixed
-  **/
-  public static function getServerUrls($name, $suffix=".md"){
+   */
+  public static function getServerUrls($name, $suffix=".md") {
     $res = self::getProjectInfo($name, $suffix);
     if( $res === false ){
       return false;
@@ -95,8 +101,8 @@ class tserver {
    * @param  string name
    * @param  string suffix
    * @return mixed
-  **/
-  public static function getServerUrl($name, $suffix=".md"){
+   */
+  public static function getServerUrl($name, $suffix=".md") {
     $res = self::getServerUrls($name, $suffix);
     if( $res === false ){
       return false;
@@ -106,5 +112,4 @@ class tserver {
   }
 
 }
-
 ?>
