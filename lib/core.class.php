@@ -23,7 +23,7 @@ class Core {
     // 基本定义
     define("NAME", "FoxPan");
     define("NAME_CN", "狐云");
-    define("VERSION", "0.3.0");
+    define("VERSION", "0.3.1");
     // 注册autoload方法
     spl_autoload_register("fp\Core::autoload");
     // 载入系统配置

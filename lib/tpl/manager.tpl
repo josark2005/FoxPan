@@ -22,11 +22,16 @@
     <script type="text/template" id="tpl-btn-dd-divider">
       <div class="dropdown-divider"></div>
     </script>
+    <script type="text/template" id="tpl-notice">
+      <div class="alert alert-#color text-center"><a href="#link" target="_blank">#title</a></div>
+    </script>
   </head>
   <body>
     {_nav_}
     <div class="container my-4" id="container">
-      {_warning_}
+      <div id="notice">
+        {_warning_}
+      </div>
       <div class="row">
 
         <div class="col-md-12 col-sm-12">

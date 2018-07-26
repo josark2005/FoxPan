@@ -11,7 +11,7 @@ namespace fp;
 
 /**
  * Acquirer
- * @version 1.0.0
+ * @version 1.0.1
  * @author  Jokin
  */
 class acquirer {
@@ -35,6 +35,7 @@ class acquirer {
     }
     $res = curl_exec($ch);
     $err = curl_errno($ch);
+    curl_close($ch);
     if( $err !== 0 ){
       return false;
     }else{

@@ -11,7 +11,7 @@ namespace fp;
 
 /**
  * Twocola Server
- * @version  1.0.4
+ * @version  1.0.5
  * @author Jokin
  */
 class tserver {
@@ -70,6 +70,7 @@ class tserver {
     curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
     $res = curl_exec($ch);
     $errno = curl_errno($ch);
+    curl_close($ch);
     if( $errno !== 0 ){
       return false;
     }else{
