@@ -24,8 +24,9 @@
 
 ## 相关信息
 
-- 官网（手册） [FoxPan](http://jokin1999.github.io/FoxPan)
-- GitHub [托管地址](http://github.com/jokin1999/FoxPan)
+- 官网（手册） [FoxPan](https://jokin1999.github.io/FoxPan)
+- Coding [托管地址](https://coding.net/u/Jokin/p/FoxPan)
+- GitHub [托管地址](https://github.com/jokin1999/FoxPan)
 
 ---
 
