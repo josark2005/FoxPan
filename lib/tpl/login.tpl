@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>__NAME_CN__</title>
-    <link rel="shortcut icon" href="./lib/tpl/imgs/logo.png">
-    <link rel="stylesheet" href="./lib/tpl/css/bootstrap.min.css">
+{_header_}
     <!-- Special Page -->
-    <link rel="stylesheet" href="./lib/tpl/css/fontawesome-all.min.css">
-    <script src="./lib/tpl/js/jquery-3.2.1.min.js" charset="utf-8"></script>
-    <script src="./lib/tpl/js/bootstrap.bundle.min.js" charset="utf-8"></script>
     <script type="text/javascript">
       $(function(){
         // height fixer
@@ -56,11 +46,12 @@
         });
       }
     </script>
-  </head>
+  {_header_end_}
   <body class="bg-secondary" style="background: url(__WALLPAPER_LOGIN__) no-repeat; background-position: center center; background-attachment: fixed;">
   <!-- <body class="bg-secondary"> -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="box-shadow:0 0 150px 1px rgba(52, 58, 64); background-color: rgba(52, 58, 64 ,0.7);" id="navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgba(52, 58, 64 ,0.5);" id="navbar">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark" id="navbar"> -->
       <div class="container">
         <a class="navbar-brand" href="javascript:;">
           <img src="./lib/tpl/imgs/logo.png" width="30" height="30" alt="logo">
@@ -86,9 +77,19 @@
                   <button class="btn btn-outline-secondary" id="btn" type="button" onclick="javascript:login();">登录</button>
                 </div>
               </div>
-              <a class="text-muted small float-right" href="http://jokin1999.github.io/FoxPan/manual/forgetAuthPW.html" target="_blank">忘记密码？</a>
+              <a class="text-muted small float-right" href="https://jokin1999.github.io/FoxPan/manual/forgetAuthPW.html" target="_blank">忘记密码？</a>
             </div>
-            {_login_footer_}
+            <div class="card-footer text-muted">
+              <small class="clear-fix">
+                <span class="float-left">
+                  <a class="text-muted" href="http://jokin1999.github.io/FoxPan" target="_blank">官方网站</a>
+                  |
+                  <a class="text-muted fab fa-github" href="http://github.com/Jokin1999/FoxPan" target="_blank"> GitHub</a>
+                  |
+                  <a class="text-muted far fa-list-alt" href="http://foxpan.twocola.com/notice/update_logs.html" target="_blank"> 更新日志</a>
+                </span>
+              </small>
+            </div>
           </div>
         </div>
 

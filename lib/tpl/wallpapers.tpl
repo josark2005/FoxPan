@@ -27,7 +27,11 @@
     {_nav_}
 
     <div class="container mt-4" id="container">
-      <div class="alert alert-warning text-center">壁纸中心仍在测试阶段</div>
+      <div class="alert alert-warning text-center">
+        <button type="button" class="btn btn-danger" onclick="javascript:delWallpaper();">不使用壁纸</button>
+        <button type="button" class="btn btn-success" disabled>自定义壁纸（暂不可用）</button>
+      </div>
+      <hr />
       <div class="alert alert-success text-center" id="alert">获取壁纸数据中......</div>
       <div class="row" id="wallpapers-container"></div>
     </div>

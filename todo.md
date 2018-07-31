@@ -4,7 +4,8 @@
 
 - [ ]支持文件移动
 - [ ]支持文件复制
-- [ ]接入`wallpaper-server`服务
+- [x]支持文件重命名
+- [x]接入`wallpaper-server`服务
 - [ ]支持升级
 
 ---

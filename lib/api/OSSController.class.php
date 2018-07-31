@@ -46,11 +46,19 @@ class OSSController {
   public function rename(){
     if( isset($_POST['okey']) && !empty($_POST['key']) ){
       $res = fp\sdk\oss::rename(C('AK'), C('SK'), C('BKT'), $_POST['okey'], $_POST['key'], true);
-      $err['code'] = "0";
-      $err['msg'] = "success";
-      $err['msg_zh'] = "重命名成功";
-      $err['data'] = $res;
-      echo json_encode($err);
+      if ($res) {
+        $err['code'] = "0";
+        $err['msg'] = "success";
+        $err['msg_zh'] = "重命名成功";
+        $err['data'] = $res;
+        echo json_encode($err);
+      }else{
+        $err['code'] = "-1";
+        $err['msg'] = "failed";
+        $err['msg_zh'] = "重命名失败";
+        $err['data'] = $res;
+        echo json_encode($err);
+      }
     }else{
       $err['code'] = "JPCAE01";
       $err['msg'] = "bad infomation";

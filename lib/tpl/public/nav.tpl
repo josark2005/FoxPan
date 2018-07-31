@@ -28,6 +28,7 @@
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="?page=wallpapers"><i class="fas fa-fw fa-images"></i> 壁纸中心</a>
             <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="?page=notice"><i class="far fa-fw fa-list-alt"></i> 公告</a>
             <a class="dropdown-item" href="?page=about"><i class="fas fa-fw fa-info-circle"></i> 关于</a>
           </div>
         </li>

@@ -23,7 +23,7 @@
       <div class="dropdown-divider"></div>
     </script>
     <script type="text/template" id="tpl-notice">
-      <div class="alert alert-#color text-center"><a href="#link" target="_blank">#title</a></div>
+      <div class="alert alert-#color text-center"><a class="text-dark" href="#link" target="_blank">#title</a></div>
     </script>
   </head>
   <body>
@@ -32,7 +32,11 @@
       <div id="notice">
         {_warning_}
       </div>
+
+      <hr />
+
       <div class="row">
+
 
         <div class="col-md-12 col-sm-12">
           <div class="card">
@@ -40,52 +44,56 @@
               <span class="font-weight-bold">资源管理</span> <small class="badge badge-light">位置：<span id="prefix"></small>
             </div>
             <div class="card-body">
+              <p class="m-0">
+                <div class="btn-group m-btn-group" role="group">
+                  <button type="button" class="btn btn-sm btn-success" data-toggle="modal" data-target="#newFolder">新建文件夹</button>
+                </div>
+              </p>
 
-                  <table class="table table-hover table-responsive-sm">
-                    <col style="max-width: 80%" />
-                    <col style="min-width: 180px;" />
-                    <col style="min-width: 180px;" />
-                    <thead>
-                      <tr>
-                        <th scope="col">名称</th>
-                        <th scope="col">大小</th>
-                        <th scope="col">操作</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <foreach name="folders">
-                        <tr>
-                          <td class="text-truncate">
-                            <a class="text-dark" href="?page=manager&prefix=($value:key)" title="($value:name)">
-                              <i class="fas fa-folder-open fa-fw fa-2x"></i> ($value:name)
-                            </a>
-                          </td>
-                          <td>文件夹</td>
-                          <td><button class="btn btn-sm btn-info" onclick="location.href='?page=manager&prefix=($value:key)'">打开</button></td>
-                        </tr>
-                      </foreach>
-                      <foreach name="files">
-                        <tr id="box_($value:hash)">
-                          <td class="text-truncate">
-                            <a class="text-dark" name="file-link" href="http://__DM__/($value:key)" id="($value:hash)" title="($value:name)"
-                             data-name="($value:name_fixed)" data-key="($value:key_fixed)" data-hash="($value:hash)" data-size="($value:fsize)">
-                              <i class="fas fa-file fa-fw fa-2x"></i> ($value:name)
-                            </a>
-                          </td>
-                          <td id='size-($value:hash)'>0</td>
-                          <td>
-                            <div class="dropdown">
-                              <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="btn-($value:hash)"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                操作
-                              </button>
-                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="btn-dd-($value:hash)"></div>
-                            </div>
-                          </td>
-                        </tr>
-                      </foreach>
-                  </table>
-
+              <table class="table table-hover table-responsive-sm">
+                <col style="max-width: 80%" />
+                <col style="min-width: 180px;" />
+                <col style="min-width: 180px;" />
+                <thead>
+                  <tr>
+                    <th scope="col">名称</th>
+                    <th scope="col">大小</th>
+                    <th scope="col">操作</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <foreach name="folders">
+                    <tr>
+                      <td class="text-truncate">
+                        <a class="text-dark" href="?page=manager&prefix=($value:key)" title="($value:name)">
+                          <i class="fas fa-folder-open fa-fw fa-2x"></i> ($value:name)
+                        </a>
+                      </td>
+                      <td>文件夹</td>
+                      <td><button class="btn btn-sm btn-info" onclick="location.href='?page=manager&prefix=($value:key)'">打开</button></td>
+                    </tr>
+                  </foreach>
+                  <foreach name="files">
+                    <tr id="box_($value:hash)">
+                      <td class="text-truncate">
+                        <a class="text-dark" name="file-link" href="http://__DM__/($value:key)" id="($value:hash)" title="($value:name)"
+                         data-name="($value:name_fixed)" data-key="($value:key_fixed)" data-hash="($value:hash)" data-size="($value:fsize)">
+                          <i class="fas fa-file fa-fw fa-2x"></i> ($value:name)
+                        </a>
+                      </td>
+                      <td id='size-($value:hash)'>0</td>
+                      <td>
+                        <div class="dropdown">
+                          <button class="btn btn-sm btn-primary dropdown-toggle" type="button" id="btn-($value:hash)"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            操作
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="btn-dd-($value:hash)"></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </foreach>
+              </table>
 
             </div>
             <div class="card-footer">
@@ -98,9 +106,7 @@
 
     </div>
 
-    <!-- {_footer_} -->
-
-    <div class="modal fade" tabindex="-1" role="dialog" id="newFloder">
+    <div class="modal fade" tabindex="-1" role="dialog" id="newFolder">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -111,14 +117,14 @@
             <div class="alert alert-danger"><strong>警告！</strong>请勿使用斜杠"/"以避免创建其子文件夹。</div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">新文件夹名称</span>
+                <span class="input-group-text">新文件夹名称</span>
               </div>
-              <input type="text" id="newFloderName" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+              <input type="text" id="newFolderName" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary" onclick="newFloder();">创建并进入</button>
+            <button type="button" class="btn btn-primary" onclick="newFolder();">创建并进入</button>
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
@@ -151,7 +157,7 @@
           </div>
           <div class="modal-body">
             <div class="input-group mb-3">
-              <input type="text" id="name" tabindex="0" class="form-control" autofocus="autofocus" placeholder="重命名" />
+              <input type="text" id="rename_name" tabindex="0" class="form-control" autofocus="autofocus" placeholder="请输入新文件名" />
               <div class="input-group-sappend">
                 <button class="btn btn-outline-danger" id="btn-rename" type="button">修改</button>
               </div>
@@ -163,6 +169,28 @@
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    <!-- loading -->
+    <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <i class="fal fa-spinner-third fa-spin"></i> 请稍候...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- loading -->
+    <div class="modal fade" id="alerter" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body text-center p-0 m-0">
+            <div id="alerter-alert"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </body>
 </html>

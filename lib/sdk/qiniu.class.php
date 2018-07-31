@@ -9,7 +9,7 @@
 
 /**
  * QINIU SDK DRIVER
- * @version  1.0.1
+ * @version  1.0.2
  * @author Jokin
  */
 
@@ -71,6 +71,7 @@ class oss implements \fp\sdk {
    * @param  string bkt
    * @param  string okey 原始文件名
    * @param  string key 新文件名
+   * @param  boolean add_prefix
    * @return boolean
    */
   public static function rename(string $ak, string $sk, string $bkt, string $okey, string $key, bool $add_prefix){
@@ -137,7 +138,8 @@ class oss implements \fp\sdk {
         $prefix = join("/", $prefix)."/";
       }
     }
-    $key = $prefix.$key;
+    $key = explode('/', $key);
+    $key = $prefix.array_pop($key);
     if( $okey === $key ){
       return true;
     }
@@ -150,6 +152,7 @@ class oss implements \fp\sdk {
     $destKey = $key;
     $err = $bucketManager->move($srcBucket, $srcKey, $destBucket, $destKey, true);
     if($err) {
+      var_dump($err);
       return false;
     }else{
       return true;

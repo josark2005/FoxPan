@@ -9,7 +9,7 @@
 
 /**
  * Wallpaper
- * @version  1.0.0
+ * @version  1.1.0
  * @author   Jokin
  */
 class wallpaper {
@@ -70,7 +70,32 @@ class wallpaper {
     if ($res) {
       $err['code'] = "0";
       $err['msg'] = "success";
-      $err['msg_zh'] = "设置成功";
+      $err['msg_zh'] = "设置壁纸成功";
+      exit(json_encode($err));
+    }else{
+      $err['code'] = "JPCAD04";
+      $err['msg'] = "failed to write confinguration file";
+      $err['msg_zh'] = "设置文件无法写入";
+      exit(json_encode($err));
+    }
+  }
+
+  public function delWallpaper() : void {
+    if( !is_file("./config.inc.php") ){
+      $err['code'] = "JPCAD03";
+      $err['msg'] = "confinguration file lost";
+      $err['msg_zh'] = "设置文件丢失";
+      exit(json_encode($err));
+    }
+    $config = include "./config.inc.php";
+    $config['WALLPAPER_LOGIN'] = false;
+    $linefeed = PHP_EOL;
+    $content = "<?php{$linefeed}return ".var_export($config,true).";";
+    $res = file_put_contents("./config.inc.php", $content);
+    if ($res) {
+      $err['code'] = "0";
+      $err['msg'] = "success";
+      $err['msg_zh'] = "删除壁纸成功";
       exit(json_encode($err));
     }else{
       $err['code'] = "JPCAD04";

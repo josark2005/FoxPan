@@ -48,20 +48,22 @@ class controller {
     $prefix = htmlspecialchars((isset($_GET['prefix'])) ? $_GET['prefix'] : '');
     template::assign('prefix', rtrim(str_replace('\'', '\\\'', $prefix), '/'));  // 给模板传递prefix参数
     $files = sdk\oss::getFiles(C('AK'), C('SK'), C('BKT'), $prefix, $marker='');
+    // 文件
+    $prefix_len = mb_strlen($prefix);
     if( isset($files['items']) ){
       foreach ($files['items'] as $key => $value) {
         // 去除前缀
-        $files['items'][$key]['name'] = ltrim($value['key'], $prefix);
+        $files['items'][$key]['name'] = mb_substr($value['key'], $prefix_len);
         $files['items'][$key]['name_fixed'] = str_replace('"', '\\"', $files['items'][$key]['name']);
         $files['items'][$key]['key_fixed'] = str_replace('"', '\\"', str_replace('\'', '\\\'', $value['key']));
       }
-
       template::assign('files', $files['items']);
     }
+    // 文件夹
     if( isset($files['commonPrefixes']) ){
       foreach ($files['commonPrefixes'] as $key => $value) {
         // 去除前缀
-        $files['commonPrefixes']['fixed'][$key]['name'] = rtrim(ltrim($value, $prefix), '/');
+        $files['commonPrefixes']['fixed'][$key]['name'] = rtrim(mb_substr($value, $prefix_len), '/');
         $files['commonPrefixes']['fixed'][$key]['key'] = str_replace('"', '\\"', str_replace('\'', '\\\'', $value));
       }
       template::assign('folders', $files['commonPrefixes']['fixed']);
